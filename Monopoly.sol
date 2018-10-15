@@ -350,13 +350,14 @@ contract Monopoly {
         
         
         
-        createPlayer(_piece, _name);
+        addPlayer(_piece, _name);
         
     }
     
     
     
-    function createPlayer (uint _piece, string _name) public {
+    function addPlayer (uint _piece, string _name) public {
+        require(started == false);
         require(players < 8);
         require(_piece > 0 && _piece < 9);
         require(pieceInfo[_piece].taken == false);
