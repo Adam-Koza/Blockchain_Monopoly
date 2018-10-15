@@ -546,8 +546,8 @@ contract Monopoly {
             (gameInfo[_gameID].dice_one + gameInfo[_gameID].dice_two)) % 39;
         
         // Pass go
-        if (new_position < gameInfo[_gameID].playerInfo[msg.sender].current_postion &&
-            new_position > 0) {
+        if ((new_position < gameInfo[_gameID].playerInfo[msg.sender].current_postion &&
+            new_position > 0) ||  gameInfo[_gameID].playerInfo[msg.sender].current_postion == 0){
                 gameInfo[_gameID].playerInfo[msg.sender].cash += 200;
         }
         
