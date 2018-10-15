@@ -10,10 +10,9 @@ contract Monopoly {
     bool public ended;
 
     struct Player {
-        uint num;
         string name;
-        address player_address;
-        string piece;
+        uint num;
+        uint piece;
         uint current_postion;
         uint doubles_rolled;
         uint cash;
@@ -21,8 +20,9 @@ contract Monopoly {
         uint total_value;
         bool in_jail;
     }
-    
+
     struct Piece {
+        string name;
         bool taken;
         address owner;
     }
@@ -90,8 +90,8 @@ contract Monopoly {
         uint cost;
     }
     
-    mapping(uint => Player) playerInfo;
-    mapping(string => Piece) pieceInfo;
+    mapping(address => Player) playerInfo;
+    mapping(uint => Piece) pieceInfo;
     mapping(uint => Property) propertyInfo;
     mapping(uint => Utility) utilityInfo;
     mapping(uint => Railroad) railroadInfo;
@@ -101,7 +101,23 @@ contract Monopoly {
     mapping(uint => string) board;
     
     
-    constructor() public {
+    constructor(uint _piece, string _name) public {
+        
+        owner = msg.sender;
+        turn = 0;
+        started = false;
+        ended = false;
+        
+        // Build Pieces
+        pieceInfo[1] = Piece({name: "Top Hat", taken: false, owner: 0x0});
+        pieceInfo[2] = Piece({name: "Race Car", taken: false, owner: 0x0});
+        pieceInfo[3] = Piece({name: "Thimble", taken: false, owner: 0x0});
+        pieceInfo[4] = Piece({name: "Wheelbarrow", taken: false, owner: 0x0});
+        pieceInfo[5] = Piece({name: "Boot", taken: false, owner: 0x0});
+        pieceInfo[6] = Piece({name: "Battleship", taken: false, owner: 0x0});
+        pieceInfo[7] = Piece({name: "Iron", taken: false, owner: 0x0});
+        pieceInfo[8] = Piece({name: "Horse & Rider", taken: false, owner: 0x0});
+        
         
         // Build Board.
         // reference: http://monopoly.wikia.com/wiki/Property
@@ -266,6 +282,10 @@ contract Monopoly {
             set: [26, 29]
         });
         board[28] = "Utility";
+        utilityInfo[28] = Utility({name: "Water Works",
+            cost: 150, rent: [4, 10], owned: false, owner: 0x0,
+            mortgaged: false, mortgage_value: 75, set: 12
+        });
         board[29] = "Property";
         propertyInfo[29] = Property({name: "Marvin Gardens",
             color: "Yellow", cost: 280, rent: 24, oneHouse_rent: 120,
@@ -327,7 +347,29 @@ contract Monopoly {
             set: [37, 0]
         });
         
+        
+        
+        
+        createPlayer(_piece, _name);
+        
     }
+    
+    
+    
+    function createPlayer (uint _piece, string _name) public {
+        require(players < 8);
+        require(_piece > 0 && _piece < 9);
+        require(pieceInfo[_piece].taken == false);
+        pieceInfo[_piece].owner = msg.sender;
+        pieceInfo[_piece].taken = true;
+        players += 1;
+        playerInfo[msg.sender] = Player({name: _name, num: players, 
+            piece: _piece, current_postion: 0, doubles_rolled: 0, cash: 1500, 
+            asset_value: 0, total_value: 1500, in_jail: false
+        });
+        
+    }
+    
     
     
     
