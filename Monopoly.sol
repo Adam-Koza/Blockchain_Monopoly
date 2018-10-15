@@ -19,7 +19,7 @@ contract Monopoly {
     
     struct Ownership {
         bool owned;
-        uint owner;
+        address owner;
         bool mortgaged;
         uint buildings;
     }
