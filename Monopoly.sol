@@ -15,6 +15,7 @@ contract Monopoly {
         mapping(address => Player) playerInfo;
         mapping(uint => Piece) pieceInfo;
         mapping(uint => Ownership) ownershipInfo;
+        mapping(uint => bool) stillSolvent;
     }
     
     struct Ownership {
@@ -35,6 +36,7 @@ contract Monopoly {
         uint total_value;
         uint get_out_of_jail_free;
         bool in_jail;
+        bool solvent;
         
     }
 
@@ -315,6 +317,11 @@ contract Monopoly {
     
     function createGame (uint _gameID) public {
         gameInfo[_gameID].game_master = msg.sender;
+        gameInfo[_gameID].turn = 0;
+        gameInfo[_gameID].middle_pot = 200;
+        gameInfo[_gameID].players = 0;
+        gameInfo[_gameID].started = false;
+        gameInfo[_gameID].ended = false;
         
         // Initilize Pieces
         gameInfo[_gameID].pieceInfo[1] = Piece({name: "Top Hat", 
@@ -450,9 +457,24 @@ contract Monopoly {
         gameInfo[_gameID].playerInfo[msg.sender] = Player({
             name: _name, num: gameInfo[_gameID].players, piece: _piece, 
             current_postion: 0, doubles_rolled: 0, cash: 1500, asset_value: 0, 
-            total_value: 1500, get_out_of_jail_free: 0, in_jail: false
+            total_value: 1500, get_out_of_jail_free: 0, in_jail: false,
+            solvent: true
         });
-        
+        gameInfo[_gameID].stillSolvent[gameInfo[_gameID].players] = true;
+    }
+    
+    function nextTurn (uint _gameID, uint _turn) public view returns (uint) {
+        for(uint i = _turn + 1; i < gameInfo[_gameID].players + 1; i++){
+                if (gameInfo[_gameID].stillSolvent[i]) {
+                    return i;
+                }
+        }
+        for(uint k = 1; k < gameInfo[_gameID].players; k++){
+                if (gameInfo[_gameID].stillSolvent[k]) {
+                    return k;
+                }
+        }
+        return 99;
     }
     
     
