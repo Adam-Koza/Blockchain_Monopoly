@@ -1,0 +1,133 @@
+What requests need to be handled from the client?
+
+- Game join/setup and peice selection (transaction).
+- POST signature to server of game action with hash of existing game history.
+    ex. "roll d8566136f6e6ba6b9b8394a6cceb77bb683bc829af9810279e369b66a43bfd10"
+    Server evaluates the validity of this signature and game action, updates game state.
+
+What are the conditional rendering needs for your client?
+
+- GET game state from database, render board, player status, and enable/disable available action buttons.
+- Web3 provider required to read contract to render list of open games or create game.
+
+What interactions with the Blockchain is the backend responsible for?
+
+- Read game players, registered pieces.
+- End game, publish IPFS hash of game history.
+
+What off chain data persistence needs does your DApp have?
+
+- IPFS storage for complete game history.
+- MongoDB to save game state and game action log.
+
+-----------------------------------
+
+Data Model:
+
+1. GameID
+User --> Server
+
+2. GameState
+Server --> User
+(client rendering)
+
+3. GameActionSignature
+User --> Server
+(server verifies)
+
+4. GameStateUpdate
+Server --> User
+(client rendering)
+
+GoTo 3.
+
+-----------------------------------
+
+DB Schema:
+
+GameState: {
+    GameID: 543,
+    State: {
+        started: true,
+        ended: false,
+        numPlayers: 3,
+        dice1: 3,
+        dice2: 2,
+        turn: 1,
+        middlePot: 500,
+        gameHistoryHash: d8566136f6e6ba6b9b8394a6cceb77bb683bc829af9810279e369b66a43bfd10,
+        peices: {
+            hat: 0xF8d0B4ff350edfDA2ff8Cc39972e10F3f909F4a5,
+            car: 0xF8d0B4ff350edfDA2ff8Cc39972e10F3f909F4a5,
+            shoe: 0xF8d0B4ff350edfDA2ff8Cc39972e10F3f909F4a5
+        },
+        players: {
+            1: {
+                address: 0xF8d0B4ff350edfDA2ff8Cc39972e10F3f909F4a5,
+                gameMaster: true,
+                name: Adam,
+                balance: 1500,
+                piece: Hat,
+                currentPosition: 12,
+                doublesRolled: 0,
+                assetValue: 2000,
+                totalValue: 3500,
+                getOutOfJailFree: true,
+                solvent: true
+            },
+            2: {
+                address: 0xF8d0B4ff350edfDA2ff8Cc39972e10F3f909F4a5,
+                gameMaster: false,
+                name: Yanesh,
+                balance: 1500,
+
+                    ....
+            }
+        },
+        propertyOwnership: {
+            position1: {
+                owner: 0xF8d0B4ff350edfDA2ff8Cc39972e10F3f909F4a5,
+                houses: 3,
+                rent: 90,
+                mortgaged: false
+            },
+            position3: {
+                owner: 0xF8d0B4ff350edfDA2ff8Cc39972e10F3f909F4a5,
+                houses: 3,
+                rent: 180,
+                mortgaged: false
+            },
+                ....
+        }
+    }
+},
+PropertyInfo: {
+    1: {
+        name: "Mediterranean Avenue",
+        color: "Purple", 
+        cost: 60, 
+        rent: 2, 
+        oneHouse_rent: 10,
+        twoHouse_rent: 30,
+        threeHouse_rent: 90,
+        fourHouse_rent: 160,
+        hotel_rent: 250,
+        mortgage_value: 30,
+        building_cost: 50, 
+        set: [3, 0]
+    },
+    3: {
+        name: "Baltic Avenue",
+        color: "Purple", cost: 60,
+        rent: 4,
+        oneHouse_rent: 20,
+        twoHouse_rent: 60,
+        threeHouse_rent: 180,
+        fourHouse_rent: 320,
+        hotel_rent: 450,
+        mortgage_value: 30,
+        building_cost: 50,
+        set: [1, 0]
+    }, 
+        ....
+}
