@@ -33,3 +33,14 @@ const deployedContract = new ethers.Contract(Monopoly['deployedAddress'], Monopo
 
 console.log(deployedContract);
 
+
+async function CallContract() {
+    console.log(await deployedContract.isPieceAvailable(0,1));
+    console.log(await deployedContract.isPieceAvailable(1,1));
+    console.log(await deployedContract.isPieceAvailable(2,1));
+    console.log(await deployedContract.isPieceAvailable(3,1));
+    console.log(await deployedContract.isPieceAvailable(4,1));
+}
+
+CallContract();
+

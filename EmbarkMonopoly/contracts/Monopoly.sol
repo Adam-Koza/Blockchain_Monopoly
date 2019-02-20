@@ -34,7 +34,7 @@ contract Monopoly {
         return gameInfo[_gameID].pieceInfo[_pieceID].taken;
     }
 
-    function newGame (uint _piece, uint _wager, string memory _name) public {
+    function newGame (uint _piece, uint _wager, string memory _name) public returns(uint) {
         require(Balance[msg.sender] >= _wager, "You don't have enough Monopoly Money.");
         require(_piece > 0 && _piece < 9, "Piece is not valid."); 
         gameID += 1;
@@ -44,5 +44,6 @@ contract Monopoly {
         gameInfo[gameID].pieceInfo[_piece].name = _name;
         gameInfo[gameID].pieceInfo[_piece].taken = true;
         gameInfo[gameID].pieceInfo[_piece].owner = msg.sender;
+        return gameID;
     }
 }
