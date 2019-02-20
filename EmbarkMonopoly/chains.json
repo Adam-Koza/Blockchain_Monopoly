@@ -1,0 +1,10 @@
+{
+  "0x83c95026d2d602270be6c438c006d85f952f6e97df1950646deb043b7ad6eea5": {
+    "contracts": {
+      "0x21fbc735711383afb26973fd580dec71cb2f4b02dd484435c14d69cfe0adecbc": {
+        "name": "BlockchainMonopoly",
+        "address": "0xcF2596d275CBB8f276BCCD0E6BF5A9DdEC7C464b"
+      }
+    }
+  }
+}
