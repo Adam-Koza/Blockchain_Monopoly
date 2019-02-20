@@ -1,19 +1,41 @@
+Overview:
+User starts a game of monopoly. Recorded on the blockchain
+Other users join the open game.
+Game starts. Game logic on the server
+Game ends and is recorded on the blockchain (winner, game summary, play-by-play, etc)
+
+Main features:
+User can buy monopoly tokens
+User can spend monopoly tokens to buy into a game
+User can start a new game - choose game board, choose piece
+Additional users can join an open game before it starts
+
+Other features:
+Leaderboard
+View past games / game history
+Merkle airdrop monopoly tokens as promotion to get users playing
+Manage buy/sell monopoly tokens
+
+Lab 2 questions:
 What requests need to be handled from the client?
 
-- Game join/setup and peice selection (transaction).
+- Game join/setup and piece selection (transaction to the blockchain).
 - POST signature to server of game action with hash of existing game history.
     ex. "roll d8566136f6e6ba6b9b8394a6cceb77bb683bc829af9810279e369b66a43bfd10"
     Server evaluates the validity of this signature and game action, updates game state.
+- All game rules are coded on the server to reject any invalid game action
+- When game ends, server sends a transaction to the blockchain to pay out the winner and record the game history
 
 What are the conditional rendering needs for your client?
 
-- GET game state from database, render board, player status, and enable/disable available action buttons.
-- Web3 provider required to read contract to render list of open games or create game.
+- GET game state from database, render board, player status, and enable/disable available action buttons, previous game histories.
+- Web3 provider required to read contract to render list of open games or create game, and to publish a completed game.
 
 What interactions with the Blockchain is the backend responsible for?
 
-- Read game players, registered pieces.
-- End game, publish IPFS hash of game history.
+- Initialize a game: initialize the owner of the game and game board used
+- Start playing a game: read game players and registered pieces to start the game
+- End game: payout winner and publish IPFS hash of game history.
 
 What off chain data persistence needs does your DApp have?
 
@@ -104,16 +126,16 @@ GameState: {
 PropertyInfo: {
     1: {
         name: "Mediterranean Avenue",
-        color: "Purple", 
-        cost: 60, 
-        rent: 2, 
+        color: "Purple",
+        cost: 60,
+        rent: 2,
         oneHouse_rent: 10,
         twoHouse_rent: 30,
         threeHouse_rent: 90,
         fourHouse_rent: 160,
         hotel_rent: 250,
         mortgage_value: 30,
-        building_cost: 50, 
+        building_cost: 50,
         set: [3, 0]
     },
     3: {
@@ -128,6 +150,6 @@ PropertyInfo: {
         mortgage_value: 30,
         building_cost: 50,
         set: [1, 0]
-    }, 
+    },
         ....
 }
