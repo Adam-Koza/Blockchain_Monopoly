@@ -6,5 +6,17 @@
         "address": "0xcF2596d275CBB8f276BCCD0E6BF5A9DdEC7C464b"
       }
     }
+  },
+  "0x6ec692ea00dbedf3beab427a4c188584421dd3e5bce4aa7205b66ffe05579b0d": {
+    "contracts": {
+      "0xb1f98e58539172804c60aa3970122f78790c9a2919264149fc869d7b7285c7d1": {
+        "name": "BlockchainMonopoly",
+        "address": "0xcF2596d275CBB8f276BCCD0E6BF5A9DdEC7C464b"
+      },
+      "0x4e4020b901fd7898ada4852453caac889732b0d52410ae2c5c46babf974d42c4": {
+        "name": "Monopoly",
+        "address": "0xC0ae924272b4385E909f1C68000eba54593113D5"
+      }
+    }
   }
 }

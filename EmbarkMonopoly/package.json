@@ -8,5 +8,8 @@
   "author": "",
   "license": "ISC",
   "homepage": "",
-  "devDependencies": {}
+  "devDependencies": {},
+  "dependencies": {
+    "ethers": "^4.0.25"
+  }
 }

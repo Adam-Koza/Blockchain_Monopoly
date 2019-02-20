@@ -1,6 +1,6 @@
 pragma solidity 0.5.0;
 
-contract BlockchainMonopoly {
+contract Monopoly {
     
     address public owner;
     uint public gameID;
