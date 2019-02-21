@@ -11,7 +11,11 @@ router.get('/join', function(req, res, next) {
 });
 
 router.get('/leaderboard', function(req, res, next) {
-  res.render('./game/leaderboard');
+  res.render('./game/leaderboard', { title: 'Player Leaderboard' });
+});
+
+router.get('/history', function(req, res, next) {
+  res.render('./game/history', { title: 'Game History' });
 });
 
 router.get('/game/:id', function(req, res, next) {
