@@ -1,6 +1,8 @@
 pragma solidity 0.5.0;
 
 contract Monopoly {
+
+    event NewGame(uint indexed _gameID, uint _wager, string _nickname, address _gameMaster);
     
     address public owner;
     uint public gameID;
@@ -10,7 +12,7 @@ contract Monopoly {
     mapping(address => uint) public Balance;
     
     struct Game {
-        address game_master;
+        address gameMaster;
         bool started;
         bool ended;
         uint wager;
@@ -20,7 +22,7 @@ contract Monopoly {
     }
 
     struct Piece {
-        string name;
+        string nickname;
         bool taken;
         address owner;
     }
@@ -28,22 +30,28 @@ contract Monopoly {
 
     constructor () public {
         owner = msg.sender;
+        Balance[msg.sender] = 10000;
     }
 
-    function isPieceAvailable (uint _gameID, uint _pieceID) public view returns(bool) {
-        return gameInfo[_gameID].pieceInfo[_pieceID].taken;
+    function pieceStatus (uint _gameID, uint _pieceID) public view returns(string memory, bool, address) {
+        return(gameInfo[_gameID].pieceInfo[_pieceID].nickname, 
+            gameInfo[_gameID].pieceInfo[_pieceID].taken,
+            gameInfo[_gameID].pieceInfo[_pieceID].owner);
     }
 
-    function newGame (uint _piece, uint _wager, string memory _name) public returns(uint) {
+    function newGame (uint _piece, uint _wager, string memory _nickname) public returns(uint) {
         require(Balance[msg.sender] >= _wager, "You don't have enough Monopoly Money.");
         require(_piece > 0 && _piece < 9, "Piece is not valid."); 
         gameID += 1;
-        gameInfo[gameID].game_master = msg.sender;
+        gameInfo[gameID].gameMaster = msg.sender;
         gameInfo[gameID].wager = _wager;
         gameInfo[gameID].pot += _wager;
-        gameInfo[gameID].pieceInfo[_piece].name = _name;
+        gameInfo[gameID].pieceInfo[_piece].nickname = _nickname;
         gameInfo[gameID].pieceInfo[_piece].taken = true;
         gameInfo[gameID].pieceInfo[_piece].owner = msg.sender;
+        Balance[msg.sender] -= _wager;
+        emit NewGame(gameID, _wager, _nickname, msg.sender);
         return gameID;
     }
+
 }
