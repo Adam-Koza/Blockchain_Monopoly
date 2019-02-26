@@ -5,7 +5,7 @@ exports.create = function (req, res, next) {
 
     let name = req.body.slug;
     const newGame= new Game({
-      name : name;
+      name : name
     });
 
     newGame.save().then(() => {
@@ -18,7 +18,7 @@ exports.createTest = function (req, res, next) {
 
     let name = 'game controller test';
     const newGame= new Game({
-      name : name;
+      name : name
     });
 
     newGame.save().then(() => {
