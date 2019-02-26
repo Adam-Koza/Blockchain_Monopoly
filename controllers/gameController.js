@@ -9,7 +9,7 @@ exports.create = function (req, res, next) {
     });
 
     newGame.save().then(() => {
-        res.redirect('index')
+        res.redirect('')
     }).catch(next)
 };
 
@@ -22,6 +22,7 @@ exports.createTest = function (req, res, next) {
     });
 
     newGame.save().then(() => {
-        res.redirect('index')
+        console.log('created new test game in db');
+        res.redirect('')
     }).catch(next)
 };
