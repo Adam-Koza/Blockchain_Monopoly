@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var gameController = require('../controllers/gameController');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -25,5 +26,8 @@ router.get('/game/:id', function(req, res, next) {
 router.post('/payload', function(req, res, next) {
   console.log(req.body);
 });
+
+router.post('/new/:name', gameController.create);
+router.post('/newTest', gameController.createTest);
 
 module.exports = router;
