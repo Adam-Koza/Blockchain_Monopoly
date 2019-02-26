@@ -32,6 +32,18 @@
       "0x6bce763c3a299b7afd76000ba9efdf0c478c21bb5a2898af248fb9b3d23ac895": {
         "name": "Monopoly",
         "address": "0x812868A4fDC97Da4e714Ea68650FCeECB8a57d23"
+      },
+      "0x8d2d0572aa70d33c51d8d1adf52cbd59447b096e0dffc9179ab7660f554b420c": {
+        "name": "Monopoly",
+        "address": "0xF066Cb77E21E611CA97Cd41d49654B23aCd518Fd"
+      },
+      "0x97756c1b2d96aacce79a84fb4f2bd51376c7bb25334b88c7cf75cd63a3e3f9f0": {
+        "name": "Owned",
+        "address": "0x1603E45A2Dd2444C32133734Ab51e9FfB3D388D1"
+      },
+      "0x06f60ca0ecbdf9c84e6656da9a79d6876dbfda058a781d2bbb6c90c01afade8c": {
+        "name": "SafeMath",
+        "address": "0xc0cAF2ee2286AbCBAC1EDeb83A8F7bE1C8c05A5A"
       }
     }
   }
