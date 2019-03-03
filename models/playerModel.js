@@ -1,7 +1,17 @@
+// This is the model for players. Players are
+// users that are using the dapp and playing the games.
+// To be listed as a player the user has to buy
+// Monopoly Tokens. The first time a user buys Tokens
+// they should become listed as a player (essentially
+// acts like a sign-up)
+
+
 // Pulls Mongoose dependency for creating schemas
 const slug = require('mongoose-slug-generator');
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+
+mongoose.plugin(slug);
 
 // Player Schema
 var playerSchema = new Schema({
