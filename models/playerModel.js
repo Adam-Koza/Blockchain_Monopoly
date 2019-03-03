@@ -3,8 +3,8 @@ const slug = require('mongoose-slug-generator');
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// User Schema
-var userSchema = new Schema({
+// Player Schema
+var playerSchema = new Schema({
   _id : {
     type : Schema.Types.ObjectId,
     auto : true
@@ -36,7 +36,7 @@ var userSchema = new Schema({
 });
 
 // Sets the updated_at parameter equal to the current time
-userSchema.pre('save', function(next){
+playerSchema.pre('save', function(next){
     now = new Date();
     this.updated_at = now;
     if(!this.created_at) {
@@ -45,5 +45,5 @@ userSchema.pre('save', function(next){
     next();
 });
 
-// Exports the userSchema for use elsewhere. Sets the MongoDB collection to be used as: "users"
-module.exports = mongoose.model('user', userSchema);
+// Exports the playerSchema for use elsewhere. Sets the MongoDB collection to be used as: "players"
+module.exports = mongoose.model('player', playerSchema);
