@@ -2,7 +2,6 @@
 // A 'game' represents an instance of
 // a monopoly game.
 
-
 const slug = require('mongoose-slug-generator');
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
@@ -26,7 +25,11 @@ let gameSchema = new Schema({
     type : Schema.Types.ObjectId,
     ref : 'player'
   }], // Note: array of players
-  slug: {
+  board : {
+    type : Schema.Types.ObjectId,
+    ref : 'gameBoard'
+  },
+  slug : {
     type: String,
     slug: 'name'
   },

@@ -23,7 +23,7 @@ var playerSchema = new Schema({
     type : String,
     required : true
   },
-  public_key : {
+  publicKey : {
     type : String,
     required : true
   },
@@ -34,7 +34,7 @@ var playerSchema = new Schema({
   slug : {
     type : String,
     slug : 'username'
-  }
+  },
   created_at : {
     type : Date,
     default : Date.now

@@ -1,3 +1,7 @@
+// Not used atm, replaced by the player model.
+// Keeping this here in case we want to separate
+// players from users (did that even make sense?)
+
 // Pulls Mongoose dependency for creating schemas
 const slug = require('mongoose-slug-generator');
 const mongoose = require('mongoose');

@@ -13,6 +13,8 @@ exports.create = function (req, res, next) {
     }).catch(next)
 };
 
+// A random test to see if the controller, routes, mongodb works
+// for inserting a new record
 exports.createTest = function (req, res, next) {
     console.log(req);
 
