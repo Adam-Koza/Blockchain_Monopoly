@@ -22,7 +22,7 @@ var gamePieceSchema = new Schema({
   },
   imageURL : {
     type : String
-  }
+  },
   slug : {
     type : String,
     slug : 'name'
