@@ -27,7 +27,7 @@ let gameSchema = new Schema({
   }], // Note: array of players
   board : {
     type : Schema.Types.ObjectId,
-    ref : 'gameBoard'
+    ref : 'board'
   },
   slug : {
     type: String,

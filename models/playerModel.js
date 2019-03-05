@@ -5,8 +5,6 @@
 // they should become listed as a player (essentially
 // acts like a sign-up)
 
-
-// Pulls Mongoose dependency for creating schemas
 const slug = require('mongoose-slug-generator');
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;

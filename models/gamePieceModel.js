@@ -1,33 +1,31 @@
-// Not used atm, replaced by the player model.
-// Keeping this here in case we want to separate
-// players from users (did that even make sense?)
+// This is the model for game pieces. We can
+// have several pieces here and add them to
+// a new board model
 
-// Pulls Mongoose dependency for creating schemas
 const slug = require('mongoose-slug-generator');
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// User Schema
-var userSchema = new Schema({
+mongoose.plugin(slug);
+
+var gamePieceSchema = new Schema({
   _id : {
     type : Schema.Types.ObjectId,
     auto : true
   },
-  username : {
+  name : {
     type : String,
     required : true
   },
-  public_key : {
-    type : String,
-    required : true
+  description : {
+    type : String
   },
-  balance : {
-    type : Number,
-    required : true
-  },
+  imageURL : {
+    type : String
+  }
   slug : {
     type : String,
-    slug : 'username'
+    slug : 'name'
   },
   created_at : {
     type : Date,
@@ -40,7 +38,7 @@ var userSchema = new Schema({
 });
 
 // Sets the updated_at parameter equal to the current time
-userSchema.pre('save', function(next){
+gamePieceSchema.pre('save', function(next){
     now = new Date();
     this.updated_at = now;
     if(!this.created_at) {
@@ -49,5 +47,6 @@ userSchema.pre('save', function(next){
     next();
 });
 
-// Exports the userSchema for use elsewhere. Sets the MongoDB collection to be used as: "users"
-module.exports = mongoose.model('user', userSchema);
+// Exports the gamePieceSchema for use elsewhere. Sets the MongoDB
+// collection to be used as: "gamePiece"
+module.exports = mongoose.model('gamePiece', gamePieceSchema);

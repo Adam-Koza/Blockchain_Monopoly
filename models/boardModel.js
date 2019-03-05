@@ -9,15 +9,23 @@ var Schema = mongoose.Schema;
 
 mongoose.plugin(slug);
 
-var gameBoardSchema = new Schema({
+var boardSchema = new Schema({
   _id : {
     type : Schema.Types.ObjectId,
     auto : true
   },
+  name : {
+    type : String,
+    required : true
+  },
+  pieces : [{
+    type : Schema.Types.ObjectId,
+    ref : 'gamePiece'
+  }],
   // TODO: add game board properties here
   slug : {
     type : String,
-    slug : 'username'
+    slug : 'name'
   },
   created_at : {
     type : Date,
@@ -32,7 +40,7 @@ var gameBoardSchema = new Schema({
 // TODO: add function to check if a new game board satisfies all reqs
 
 // Sets the updated_at parameter equal to the current time
-gameBoardSchema.pre('save', function(next){
+boardSchema.pre('save', function(next){
     now = new Date();
     this.updated_at = now;
     if(!this.created_at) {
@@ -41,5 +49,5 @@ gameBoardSchema.pre('save', function(next){
     next();
 });
 
-// Exports the gameBoardSchema for use elsewhere. Sets the MongoDB collection to be used as: "gameBoard"
-module.exports = mongoose.model('gameBoard', gameBoardSchema);
+// Exports the boardSchema for use elsewhere. Sets the MongoDB collection to be used as: "board"
+module.exports = mongoose.model('board', boardSchema);

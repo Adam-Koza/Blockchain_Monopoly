@@ -4,7 +4,7 @@
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-let gameMoveSchema = new Schema({
+let moveSchema = new Schema({
   _id : {
     type : Schema.Types.ObjectId,
     auto : true
@@ -23,7 +23,7 @@ let gameMoveSchema = new Schema({
   },
   move_hash : {
     type : String,
-  }
+  },
   created_at : {
     type : Date,
     default : Date.now
@@ -37,7 +37,7 @@ let gameMoveSchema = new Schema({
 // TODO: add function to hash move and save move_hash
 
 // Sets the updated_at parameter equal to the current time
-gameMoveSchema.pre('save', function(next){
+moveSchema.pre('save', function(next){
     now = new Date();
     this.updated_at = now;
     if(!this.created_at) {
@@ -46,6 +46,6 @@ gameMoveSchema.pre('save', function(next){
     next();
 });
 
-// Exports the gameMoveSchema for use elsewhere. Sets the MongoDB collection
-// to be used as: "gameMove"
-module.exports = mongoose.model('gameMove', gameMoveSchema);
+// Exports the moveSchema for use elsewhere. Sets the MongoDB collection
+// to be used as: "move"
+module.exports = mongoose.model('move', moveSchema);
