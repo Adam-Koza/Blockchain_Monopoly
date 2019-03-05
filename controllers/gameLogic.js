@@ -62,6 +62,39 @@ function shuffleDeck() {
     return deck;
 }
 
+// Calculate nearest Utility.
+// Return [Int NewPosition, playerBalance.
+//
+function nearestUtility(currentPosition, playerBalance) {
+    if (currentPosition > 28) { return [12, playerBalance += 200]; }
+    if (currentPosition < 12) { return [12, playerBalance]; }
+    if (currentPosition > 12) { return [28, playerBalance]; }
+    if (currentPosition < 28) { return [28, playerBalance]; }
+}
+
+// Calculate nearest Rail Road.
+// Return Int NewPosition.
+//
+function nearestRailRoad(currentPosition, playerBalance) {
+    if (currentPosition > 35) { return [5, playerBalance += 200]; }
+    if (currentPosition < 15) { return [15, playerBalance]; }
+    if (currentPosition < 25) { return [25, playerBalance]; }
+    if (currentPosition < 35) { return [35, playerBalance]; }
+}
+
+// Calculate property repair chance card.
+// Return Int RepairCost.
+//
+function calculateRepair(player) {
+    houses = 0;
+    hotels = 0;
+    // for each property owned by player {
+    // houses += property.houses * 25;
+    // hotels += property.hotel * 100;
+    // }
+    return houses + hotels;
+}
+
 // Pull from Chance deck.
 // Return [String Event, Int NewPlayerBalance, Int NewPosition, Int NewMiddlePot, 
 //          Bool JailFree, Bool InJail, Bool TurnOver, Bool PayPlayers, Int RentMultiplier]
@@ -78,13 +111,13 @@ function pullChance(deck, drawCount, player, playerBalance, currentPosition, mid
         if (11 < currentPosition) { playerBalance += 200; }
         return ['Advance to St. Charles Place. If you pass Go, collect $200.', playerBalance, 11, middlePot, false, false, false, false, 1];
     }
-    // Come back to this.
     if (card == 3) {
-        return ['Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total 10 times the amount thrown.'];
+        let newState = nearestUtility(currentPosition, playerBalance);
+        return ['Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total 10 times the amount thrown.', newState[1], newState[0], middlePot, false, false, false, false, 10];
     }
-    // Come back to this.
     if (card == 4 || card == 5) {
-        return ['Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.'];
+        let newState = nearestRailRoad(currentPosition, playerBalance);
+        return ['Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.', newState[1], newState[0], middlePot, false, false, false, false, 2];
     }
     if (card == 6) { return ['Bank pays you dividend of $50.', playerBalance += 50, currentPosition, middlePot, false, false, true, false, 1]; }
     if (card == 7) { return ['Get out of Jail Free. This card may be kept until needed, or traded/sold.', playerBalance, currentPosition, middlePot, true, false, true, false, 1]; }
@@ -103,33 +136,6 @@ function pullChance(deck, drawCount, player, playerBalance, currentPosition, mid
     if (card == 14) { return ['You have been elected Chairman of the Board. Pay each player $50.', playerBalance -= (playerCount - 1) * 50, currentPosition, middlePot, false, false, true, true, 1]; }
     if (card == 15) { return ['Your building and loan matures. Receive $150.', playerBalance += 150, currentPosition, middlePot, false, false, true, false, 1]; }
 
-}
-
-// Calculate nearest Utility.
-// Return Int NewPosition.
-//
-function nearestUtility(currentPosition) {
-
-}
-
-// Calculate nearest Rail Road.
-// Return Int NewPosition.
-//
-function nearestRailRoad(currentPosition) {
-
-}
-
-// Calculate property repair chance card.
-// Return Int RepairCost.
-//
-function calculateRepair(player) {
-    houses = 0;
-    hotels = 0;
-    // for each property owned by player {
-    // houses += property.houses * 25;
-    // hotels += property.hotel * 100;
-    // }
-    return houses + hotels;
 }
 
 
