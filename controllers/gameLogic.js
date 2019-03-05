@@ -137,34 +137,34 @@ function pullChance(deck, drawCount, player, playerBalance, currentPosition, mid
     if (card == 13) { return ['Take a walk on the Boardwalk. Advance token to Boardwalk.', playerBalance, 39, middlePot, false, false, false, false, 1]; }
     if (card == 14) { return ['You have been elected Chairman of the Board. Pay each player $50.', playerBalance - (playerCount - 1) * 50, currentPosition, middlePot, false, false, true, true, 1]; }
     if (card == 15) { return ['Your building and loan matures. Receive $150.', playerBalance + 150, currentPosition, middlePot, false, false, true, false, 1]; }
-
 }
 
 // Pull from Community Chest deck.
 // Return [String Event, Int NewPlayerBalance, Int NewPosition, Int NewMiddlePot, 
-//          Bool JailFree, Bool InJail, Bool TurnOver, Bool PlayersPay, Int RentMultiplier]
+//          Bool JailFree, Bool InJail, Bool PlayersPay, Int PlayersPayAmount]
 //
 function pullCommunityChest(deck, drawCount, player, playerBalance, currentPosition, middlePot, playerCount) {
     // To Do: Remove Get Out of Jail Free card from deck if drawn and held.
 
     index = drawCount % 16;
     card = deck[index];
-    if (card == 0) { return ['Advance to "Go", collect $200', playerBalance + 200, 0, middlePot, false, false, true, false, 1]; }
-    if (card == 1) { return ['Bank error in your favor. Collect $200.', playerBalance + 200, currentPosition, middlePot, false, false, true, false, 1]; }
-    if (card == 2) { return ["Doctor's fees. Pay $50.", playerBalance - 50, currentPosition, middlePot + 50, false, false, true, false, 1]; }
-    if (card == 3) { return ['From sale of stock you get $50.', playerBalance + 50, currentPosition, middlePot, false, false, true, false, 1]; }
-    if (card == 4) { return ['Get Out of Jail Free. This card may be kept until needed or sold/traded.', playerBalance, currentPosition, middlePot, true, false, true, false, 1]; }
-    if (card == 5) { return ['Go to Jail. Go directly to jail. Do not pass Go, Do not collect $200.', playerBalance, 10, middlePot, false, true, true, false, 1]; }
-    if (card == 6) { return ['Grand Opera Night. Collect $50 from every player for opening night seats.', playerBalance + (playerCount - 1) * 50, currentPosition, middlePot, false, false, true, true, 50]; }
-    if (card == 7) { return ['Holiday Fund matures. Receive $100.', playerBalance + 100, currentPosition, middlePot, false, false, true, false, 1]; }
-    if (card == 8) { return ['Income tax refund. Collect $20.', playerBalance + 20, currentPosition, middlePot, false, false, true, false, 1]; }
-    if (card == 9) { return ["It is your birthday. Collect $10 from every player.", playerBalance + (playerCount - 1) * 10, currentPosition, 0, middlePot, false, false, true, true, 10]; }
-    if (card == 10) { return ['Life insurance matures. Collect $100.', playerBalance + 100, currentPosition, middlePot, false, false, true, false, 1]; }
-    if (card == 11) { return ['Hospital Fees. Pay $50.', playerBalance - 50, currentPosition, middlePot + 50, false, false, true, false, 1]; }
-    if (card == 12) { return ['School fees. Pay $50.', playerBalance - 50, currentPosition, middlePot + 50, false, false, true, false, 1]; }
-    if (card == 13) { let repair = calculateRepair(player, 40, 115); return ['You are assessed for street repairs: Pay $40 per house and $115 per hotel you own.', playerBalance - repair, currentPosition, middlePot + repair, false, false, true, false, 1]; }
-    if (card == 14) { return ['You have won second prize in a beauty contest. Collect $10.', playerBalance + 10, currentPosition, middlePot, false, false, true, false, 1]; }
-    if (card == 15) { return ['You inherit $100.', playerBalance + 100, currentPosition, middlePot, false, false, true, false, 1]; }
-
+    if (card == 0) { return ['Advance to "Go", collect $200', playerBalance + 200, 0, middlePot, false, false, false, 1]; }
+    if (card == 1) { return ['Bank error in your favor. Collect $200.', playerBalance + 200, currentPosition, middlePot, false, false, false, 1]; }
+    if (card == 2) { return ["Doctor's fees. Pay $50.", playerBalance - 50, currentPosition, middlePot + 50, false, false, false, 1]; }
+    if (card == 3) { return ['From sale of stock you get $50.', playerBalance + 50, currentPosition, middlePot, false, false, false, 1]; }
+    if (card == 4) { return ['Get Out of Jail Free. This card may be kept until needed or sold/traded.', playerBalance, currentPosition, middlePot, true, false, false, 1]; }
+    if (card == 5) { return ['Go to Jail. Go directly to jail. Do not pass Go, Do not collect $200.', playerBalance, 10, middlePot, false, true, false, 1]; }
+    if (card == 6) { return ['Grand Opera Night. Collect $50 from every player for opening night seats.', playerBalance + (playerCount - 1) * 50, currentPosition, middlePot, false, false, true, 50]; }
+    if (card == 7) { return ['Holiday Fund matures. Receive $100.', playerBalance + 100, currentPosition, middlePot, false, false, false, 1]; }
+    if (card == 8) { return ['Income tax refund. Collect $20.', playerBalance + 20, currentPosition, middlePot, false, false, false, 1]; }
+    if (card == 9) { return ["It is your birthday. Collect $10 from every player.", playerBalance + (playerCount - 1) * 10, currentPosition, 0, middlePot, false, false, true, 10]; }
+    if (card == 10) { return ['Life insurance matures. Collect $100.', playerBalance + 100, currentPosition, middlePot, false, false, false, 1]; }
+    if (card == 11) { return ['Hospital Fees. Pay $50.', playerBalance - 50, currentPosition, middlePot + 50, false, false, false, 1]; }
+    if (card == 12) { return ['School fees. Pay $50.', playerBalance - 50, currentPosition, middlePot + 50, false, false, false, 1]; }
+    if (card == 13) { let repair = calculateRepair(player, 40, 115); return ['You are assessed for street repairs: Pay $40 per house and $115 per hotel you own.', playerBalance - repair, currentPosition, middlePot + repair, false, false, false, 1]; }
+    if (card == 14) { return ['You have won second prize in a beauty contest. Collect $10.', playerBalance + 10, currentPosition, middlePot, false, false, false, 1]; }
+    if (card == 15) { return ['You inherit $100.', playerBalance + 100, currentPosition, middlePot, false, false, false, 1]; }
 }
+
+
 
