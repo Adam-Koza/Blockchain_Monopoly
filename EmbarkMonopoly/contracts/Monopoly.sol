@@ -108,7 +108,6 @@ contract Monopoly is ERC20Interface, Owned {
         address owner;
     }
 
-    // Token Requirements
     string public symbol;
     string public  name;
     uint8 public decimals;
@@ -151,12 +150,20 @@ contract Monopoly is ERC20Interface, Owned {
         _;
     }
 
+    // ------------------------------------------------------------------------
+    // Return status and attributes of a piece in a specified game.
+    // ------------------------------------------------------------------------
     function pieceStatus (uint _gameID, uint _pieceID) public view returns (string memory, bool, address) {
         return(gameInfo[_gameID].pieceInfo[_pieceID].nickname, 
             gameInfo[_gameID].pieceInfo[_pieceID].taken,
             gameInfo[_gameID].pieceInfo[_pieceID].owner);
     }
 
+    // ------------------------------------------------------------------------
+    // Create a new game, selects a piece and nickname and becomes Game Master.
+    // - player must have enough tokens to play.
+    // - player must select a valid piece.
+    // ------------------------------------------------------------------------
     function newGame (uint _piece, uint _wager, string memory _nickname) public validGame (_piece, _wager) returns (uint) {
         gameID = gameID.add(1);
         gameInfo[gameID].gameMaster = msg.sender;
@@ -172,6 +179,12 @@ contract Monopoly is ERC20Interface, Owned {
         return gameID;
     }
 
+    // ------------------------------------------------------------------------
+    // Join an existing game, selects a piece and nickname.
+    // - player must have enough tokens to play.
+    // - player must select a valid piece.
+    // - player can't join twice.
+    // ------------------------------------------------------------------------
     function joinGame (uint _gameID, uint _piece, string memory _nickname) public validJoin(_gameID, _piece) returns (bool success) {
         gameInfo[_gameID].pot = gameInfo[_gameID].pot.add(gameInfo[_gameID].wager);
         gameInfo[_gameID].pieceInfo[_piece].nickname = _nickname;
@@ -183,12 +196,18 @@ contract Monopoly is ERC20Interface, Owned {
         return true;
     }
 
+    // ------------------------------------------------------------------------
+    // Start an existing game, onlyGameMaster
+    // ------------------------------------------------------------------------
     function startGame (uint _gameID) public onlyGameMaster(_gameID) returns (bool success) {
         gameInfo[_gameID].started = true;
         emit GameStarted(_gameID, msg.sender);
         return true;
     }
 
+    // ------------------------------------------------------------------------
+    // End game and award winning piece, onlyOwner
+    // ------------------------------------------------------------------------
     function endGame (uint _gameID, uint _piece, string memory _gameHistory) public onlyOwner returns (bool success) {
         gameInfo[_gameID].ended = true;
         balances[gameInfo[_gameID].pieceInfo[_piece].owner] = balances[gameInfo[_gameID].pieceInfo[_piece].owner].add(gameInfo[_gameID].pot);
@@ -203,7 +222,7 @@ contract Monopoly is ERC20Interface, Owned {
 
 
 
-     // ------------------------------------------------------------------------
+    // ------------------------------------------------------------------------
     // Total supply
     // ------------------------------------------------------------------------
     function totalSupply() public view returns (uint) {
