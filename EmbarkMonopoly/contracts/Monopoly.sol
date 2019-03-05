@@ -76,14 +76,16 @@ contract Owned {
     }
 }
 
+// ----------------------------------------------------------------------------
+// Game contract
+// ----------------------------------------------------------------------------
 contract Monopoly is ERC20Interface, Owned {
     using SafeMath for uint;
 
-    // Game Requirments
-    event NewGame(uint indexed _gameID, uint _wager, string _nickname, address _gameMaster);
-    event NewPlayer(uint indexed _gameID, uint _piece, string _nickname, address _player);
-    event GameStarted(uint indexed _gameID, address _gameMaster);
-    event GameEnded(uint indexed _gameID, address _winner, string _gameHistory);
+    event NewGame (uint indexed _gameID, uint _wager, string _nickname, address _gameMaster);
+    event NewPlayer (uint indexed _gameID, uint _piece, string _nickname, address _player);
+    event GameStarted (uint indexed _gameID, address _gameMaster);
+    event GameEnded (uint indexed _gameID, address _winner, string _gameHistory);
 
     uint public gameID;
     mapping(uint => Game) public gameInfo;
@@ -116,7 +118,6 @@ contract Monopoly is ERC20Interface, Owned {
     mapping(address => uint) public balances;
     mapping(address => mapping(address => uint)) public allowed;
 
-
     constructor () public {
         symbol = "MONO";
         name = "Monopoly Money";
@@ -128,30 +129,7 @@ contract Monopoly is ERC20Interface, Owned {
         emit Transfer(address(0), owner, _totalSupply);
     }
 
-    function pieceStatus (uint _gameID, uint _pieceID) public view returns(string memory, bool, address) {
-        return(gameInfo[_gameID].pieceInfo[_pieceID].nickname, 
-            gameInfo[_gameID].pieceInfo[_pieceID].taken,
-            gameInfo[_gameID].pieceInfo[_pieceID].owner);
-    }
-
-    function newGame (uint _piece, uint _wager, string memory _nickname) public returns(uint) {
-        require(balances[msg.sender] >= _wager, "You don't have enough Monopoly Money.");
-        require(_piece > 0 && _piece < 9, "Piece is not valid."); 
-        gameID += 1;
-        gameInfo[gameID].gameMaster = msg.sender;
-        gameInfo[gameID].exists = true;
-        gameInfo[gameID].wager = _wager;
-        gameInfo[gameID].pot += _wager;
-        gameInfo[gameID].pieceInfo[_piece].nickname = _nickname;
-        gameInfo[gameID].pieceInfo[_piece].taken = true;
-        gameInfo[gameID].pieceInfo[_piece].owner = msg.sender;
-        balances[msg.sender] -= _wager;
-        gameInfo[gameID].players[msg.sender] = true;
-        emit NewGame(gameID, _wager, _nickname, msg.sender);
-        return gameID;
-    }
-
-    function joinGame (uint _gameID, uint _piece, string memory _nickname) public returns(bool success) {
+    modifier validJoin (uint _gameID, uint _piece) {
         require(gameInfo[_gameID].exists, "Game does not exist.");
         require(!gameInfo[_gameID].ended, "Game has ended.");
         require(!gameInfo[_gameID].ended, "Game has already started.");
@@ -159,30 +137,64 @@ contract Monopoly is ERC20Interface, Owned {
         require(balances[msg.sender] >= gameInfo[_gameID].wager, "You don't have enough Monopoly Money.");
         require(_piece > 0 && _piece < 9, "Piece is not valid.");
         require(!gameInfo[_gameID].pieceInfo[_piece].taken, "Piece has been taken.");
-        gameInfo[_gameID].pot += gameInfo[_gameID].wager;
+        _;
+    }
+
+    modifier validGame (uint _piece, uint _wager) {
+        require(balances[msg.sender] >= _wager, "You don't have enough Monopoly Money.");
+        require(_piece > 0 && _piece < 9, "Piece is not valid."); 
+        _;
+    }
+
+    modifier onlyGameMaster (uint _gameID) {
+        require(msg.sender == gameInfo[_gameID].gameMaster, "You are not the game master.");
+        _;
+    }
+
+    function pieceStatus (uint _gameID, uint _pieceID) public view returns (string memory, bool, address) {
+        return(gameInfo[_gameID].pieceInfo[_pieceID].nickname, 
+            gameInfo[_gameID].pieceInfo[_pieceID].taken,
+            gameInfo[_gameID].pieceInfo[_pieceID].owner);
+    }
+
+    function newGame (uint _piece, uint _wager, string memory _nickname) public validGame (_piece, _wager) returns (uint) {
+        gameID = gameID.add(1);
+        gameInfo[gameID].gameMaster = msg.sender;
+        gameInfo[gameID].exists = true;
+        gameInfo[gameID].wager = _wager;
+        gameInfo[gameID].pot = gameInfo[gameID].pot.add(_wager);
+        gameInfo[gameID].pieceInfo[_piece].nickname = _nickname;
+        gameInfo[gameID].pieceInfo[_piece].taken = true;
+        gameInfo[gameID].pieceInfo[_piece].owner = msg.sender;
+        balances[msg.sender] = balances[msg.sender].sub(_wager);
+        gameInfo[gameID].players[msg.sender] = true;
+        emit NewGame(gameID, _wager, _nickname, msg.sender);
+        return gameID;
+    }
+
+    function joinGame (uint _gameID, uint _piece, string memory _nickname) public validJoin(_gameID, _piece) returns (bool success) {
+        gameInfo[_gameID].pot = gameInfo[_gameID].pot.add(gameInfo[_gameID].wager);
         gameInfo[_gameID].pieceInfo[_piece].nickname = _nickname;
         gameInfo[_gameID].pieceInfo[_piece].taken = true;
         gameInfo[_gameID].pieceInfo[_piece].owner = msg.sender;
-        balances[msg.sender] -= gameInfo[_gameID].wager;
+        balances[msg.sender] = balances[msg.sender].sub(gameInfo[_gameID].wager);
         gameInfo[_gameID].players[msg.sender] = true;
         emit NewPlayer(_gameID, _piece, _nickname, msg.sender);
         return true;
     }
 
-    function startGame (uint _gameID) public returns(bool success) {
-        require(msg.sender == gameInfo[_gameID].gameMaster, "You are not the game master.");
+    function startGame (uint _gameID) public onlyGameMaster(_gameID) returns (bool success) {
         gameInfo[_gameID].started = true;
         emit GameStarted(_gameID, msg.sender);
         return true;
     }
 
     function endGame (uint _gameID, uint _piece, string memory _gameHistory) public onlyOwner returns (bool success) {
-        require(msg.sender == owner, "You are not the owner.");
         gameInfo[_gameID].ended = true;
-        balances[gameInfo[_gameID].pieceInfo[_piece].owner] += gameInfo[_gameID].pot;
+        balances[gameInfo[_gameID].pieceInfo[_piece].owner] = balances[gameInfo[_gameID].pieceInfo[_piece].owner].add(gameInfo[_gameID].pot);
         if (bonusIssued) {
-            balances[gameInfo[_gameID].pieceInfo[_piece].owner] += bonus;
-            _totalSupply += bonus;
+            balances[gameInfo[_gameID].pieceInfo[_piece].owner] = balances[gameInfo[_gameID].pieceInfo[_piece].owner].add(bonus);
+            _totalSupply = _totalSupply.add(bonus);
         }
         gameInfo[_gameID].gameHistory = _gameHistory;
         emit GameEnded(_gameID, gameInfo[_gameID].pieceInfo[_piece].owner, _gameHistory);
