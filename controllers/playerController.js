@@ -10,7 +10,8 @@ playerController.index = function (req, res) {
     }
     else {
       res.locals.players = players;
-      res.render('players/index');
+      //res.render('players/index');
+      res.send(players);
     }
   });
 };
@@ -25,7 +26,8 @@ playerController.showSlug = function (req, res) {
     }
     else {
       res.locals.player = player;
-      res.render('players/show')
+      //res.render('players/show')
+      res.send(player);
     }
   })
 };
@@ -40,7 +42,8 @@ playerController.show = function (req, res) {
     }
     else {
       res.locals.player = player;
-      res.render('players/show')
+      //res.render('players/show')
+      res.send(player);
     }
   })
 };
@@ -61,7 +64,8 @@ playerController.save = function (req, res) {
     }
     else {
       console.log("Successfully saved new player.");
-      res.redirect("/players/index");
+      //res.redirect("/players/index");
+      res.send("Succesffully saved new player.");
     }
   });
 };
@@ -71,7 +75,7 @@ playerController.update = function (req, res) {
   Player.findByIdAndUpdate(
     req.params.id,
     {
-      $set: {req.params.body}
+      $set: req.params.body
     },
     {
       new: true
@@ -81,7 +85,8 @@ playerController.update = function (req, res) {
         console.log("Error: " + err);
       }
       else {
-        res.redirect("/players/show/" + player._id);
+        //res.redirect("/players/show/" + player._id);
+        res.send("Updated player: " + player._id);
       }
     }
   );
@@ -97,10 +102,28 @@ playerController.delete = function (req, res) {
       }
       else {
         console.log("Player deleted: \n", player);
-        res.redirect("/players");
+        //res.redirect("/players");
+        res.send("Deleted player: \n", player);
       }
     }
   );
 }
 
 module.exports = playerController;
+
+
+
+// Adding a new player:
+// POST localhost:3000/player/create
+// with application/JSON :
+// {
+// 	"username" : "Test player",
+// 	"publicKey" : "0x00000000",
+// 	"balance" : "1500"
+// }
+
+// Display all players:
+// GET localhost:3000/player/show
+
+// Display one player:
+// GET localhost:3000/player/show/5c7fed2ecdf86565f160c648

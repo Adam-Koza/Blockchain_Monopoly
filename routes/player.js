@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 var playerController = require('../controllers/playerController');
 
-router.get('/', function(req, res, next) {
-  res.render('./player/index', { title: 'Display all players:' });
-});
+// router.get('/', function(req, res, next) {
+//   res.render('./player/index', { title: 'Display all players:' });
+// });
 
 // Display all players
 router.get('/show', playerController.index);
