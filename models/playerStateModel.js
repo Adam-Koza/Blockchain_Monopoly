@@ -29,6 +29,9 @@ let playerStateSchema = new Schema({
   doublesRolled : {
     type : Number
   },
+  inJail : {
+    type : Boolean
+  },
   assetValue : {
     type : Number
   },

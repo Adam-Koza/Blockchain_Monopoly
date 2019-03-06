@@ -116,7 +116,7 @@ function pullChance(deck, drawCount, player, playerBalance, currentPosition, mid
         return ['Take a trip to Reading Railroad. If you pass Go, collect $200.', playerBalance, 5, middlePot, false, false, false, false, 1];
     }
     if (card == 13) { return ['Take a walk on the Boardwalk. Advance token to Boardwalk.', playerBalance, 39, middlePot, false, false, false, false, 1]; }
-    if (card == 14) { return ['You have been elected Chairman of the Board. Pay each player $50.', playerBalance - (playerCount - 1) * 50, currentPosition, middlePot, false, false, true, true, 1]; }
+    if (card == 14) { return ['You have been elected Chairman of the Board. Pay each player $50.', playerBalance - (playerCount * 50), currentPosition, middlePot, false, false, true, true, 1]; }
     if (card == 15) { return ['Your building and loan matures. Receive $150.', playerBalance + 150, currentPosition, middlePot, false, false, true, false, 1]; }
 }
 
@@ -148,4 +148,60 @@ function pullCommunityChest(deck, drawCount, player, playerBalance, currentPosit
 }
 
 
+
+
+function moveToken() {
+    gameState = {};
+    RentMultiplier = 1;
+
+    // Extract player State and roll.
+    playerState = gameState.playerStates[gameState.turn];
+    let roll = roll(playerState.inJail, playerState.doublesRolled, playerState.position);
+    // Return [Bool NewJailStatus, Int NewDoublesCount, Int NewPosition, 
+    //         Int Dice1, Int Dice2, Bool PassGo, Bool IsTurnOver]
+    playerState.inJail = roll[0];
+    playerState.doublesRolled = roll[1];
+    playerState.position = roll[2];
+    gameState.dice1 = roll[3];
+    gameState.dice2 = roll[4];
+    // Pass Go?
+    if (roll[5]) {
+        playerState.balance += 200;
+    }
+    // Turn over?
+    if (roll[6]) {
+        return UpdateState(gameState, playerState);
+    }
+
+    // Chance Space
+    if (gameState.game.board.spaces[playerState.position].type == 5) {
+        let chance = pullChance(deck, drawCount, player, playerBalance, currentPosition, middlePot, playerCoun)
+        // Pull from Chance deck.
+        // Return [String Event, Int NewPlayerBalance, Int NewPosition, Int NewMiddlePot, 
+        //          Bool JailFree, Bool InJail, Bool TurnOver, Bool PayPlayers, Int RentMultiplier]
+        //
+        console.log(chance[0]);
+        playerState.balance = chance[1];
+        playerState.position = chance[2];
+        gameState.middlePot = chance[3];
+        if (chance[4]) {
+            playerState.getOutOfJailFree += 1;
+        }
+        playerState.inJail = chance[5];
+        // Pay pach player $50.
+        if (chance[7]) {
+            for (i = 0; i < gameState.playerStates.length; i++) {
+                gameState.playerStates[i].balance += 50;
+            }
+        }
+        RentMultiplier = chance[8];
+        // Turn over?
+        if (chance[6]) {
+            return UpdateState(gameState, playerState);
+        }
+    }
+
+    
+
+}
 

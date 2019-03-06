@@ -22,10 +22,10 @@ var boardSchema = new Schema({
     type : Schema.Types.ObjectId,
     ref : 'gamePiece'
   }],
-  spaces : {
+  spaces : [{
     type : Schema.Types.ObjectId,
     ref : 'gameSpace'
-  },
+  }],
   created_at : {
     type : Date,
     default : Date.now
