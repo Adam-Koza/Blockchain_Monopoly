@@ -8,38 +8,23 @@ function roll(inJail, doublesCount, currentPosition) {
     // Update board position.
     oldPosition = currentPosition;
     currentPosition = ((dice1 + dice2) + currentPosition) % 40;
-
     // Roll doubles.
     if (dice1 == dice2) {
         // Roll out of jail.
-        if (injail) {
-            return [false, 0, 10, dice1, dice2, false, true];
-        }
-        doublesCount += 1;
+        if (injail) { return [false, 0, 10, dice1, dice2, false, true]; }
         // Roll into jail.
-        if (doublesCount == 3) {
-            return [true, 0, 10, dice1, dice2, false, true];
-        }
-    } else {
-        // Reset doublesCount.
-        doublesCount = 0;
+        doublesCount += 1;
+        if (doublesCount == 3) { return [true, 0, 10, dice1, dice2, false, true]; }
     }
+    // Reset doublesCount. 
+    else { doublesCount = 0; }
     // Stay in jail.
-    if (inJail) {
-        return [true, 0, 10, dice1, dice2, false, true];
-    }
+    if (inJail) { return [true, 0, 10, dice1, dice2, false, true]; }
     // Land on Go To Jail.
-    if (currentPosition == 30) {
-        return [true, 0, 10, dice1, dice2, false, true];
-    }
+    if (currentPosition == 30) { return [true, 0, 10, dice1, dice2, false, true]; }
     // Did you pass Go?
-    if (currentPosition < oldPosition) {
-        // Yes.
-        return [false, doublesCount, currentPosition, dice1, dice2, true, false];
-    } else {
-        // No.
-        return [false, doublesCount, currentPosition, dice1, dice2, false, false];
-    }
+    if (currentPosition < oldPosition) { return [false, doublesCount, currentPosition, dice1, dice2, true, false]; }
+    else { return [false, doublesCount, currentPosition, dice1, dice2, false, false]; }
 }
 
 // Shuffle Community Chest and Chance Decks.
@@ -51,13 +36,9 @@ function shuffleDeck() {
         found = false;
         randIndex = Math.floor(Math.random() * 16);
         for (i = 0; i < deck.length; i++) {
-            if (deck[i] == randIndex) {
-                found = true;
-            }
+            if (deck[i] == randIndex) { found = true; }
         }
-        if (found == false) {
-            deck.push(randIndex);
-        }
+        if (found == false) { deck.push(randIndex); }
     }
     return deck;
 }
@@ -128,7 +109,7 @@ function pullChance(deck, drawCount, player, playerBalance, currentPosition, mid
         return ['Go back three spaces.', playerBalance, currentPosition, middlePot, false, false, true, false, 1];
     }
     if (card == 9) { return ['Go to Jail. Go directly to Jail. Do not pass GO, do not collect $200.', playerBalance, 10, middlePot, false, true, true, false, 1]; }
-    if (card == 10) { let repair = calculateRepair(player, 25, 10); return ['Make general repairs on all your property: For each house pay $25, For each hotel pay $100.', playerBalance - repair, currentPosition, middlePot + repair, false, false, true, false, 1]; }
+    if (card == 10) { let repair = calculateRepair(player, 25, 100); return ['Make general repairs on all your property: For each house pay $25, For each hotel pay $100.', playerBalance - repair, currentPosition, middlePot + repair, false, false, true, false, 1]; }
     if (card == 11) { return ['Pay poor tax of $15.', playerBalance - 15, currentPosition, middlePot + 15, false, false, true, false, 1]; }
     if (card == 12) {
         if (5 < currentPosition) { playerBalance += 200; }
