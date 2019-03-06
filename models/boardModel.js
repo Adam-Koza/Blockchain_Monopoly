@@ -22,11 +22,10 @@ var boardSchema = new Schema({
     type : Schema.Types.ObjectId,
     ref : 'gamePiece'
   }],
-  // TODO: add game board properties here
-  slug : {
-    type : String,
-    slug : 'name'
-  },
+  spaces : [{
+    type : Schema.Types.ObjectId,
+    ref : 'gameSpace'
+  }],
   created_at : {
     type : Date,
     default : Date.now
