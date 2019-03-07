@@ -40,10 +40,10 @@ let gameStateSchema = new Schema({
     type : Number,
     required : true // Can be zero but required
   },
-  previousMove : {
+  stateHistory : [{
     type : Schema.Types.ObjectId,
-    ref : 'move'
-  },
+    ref : 'gameState'
+  }],
   playerStates : [{
     type : Schema.Types.ObjectId,
     ref : 'playerState'
