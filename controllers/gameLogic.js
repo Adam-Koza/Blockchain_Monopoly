@@ -408,12 +408,15 @@ function moveToken(gameState) {
 //
 function moveToken(gameState) {
 
-    // Extract player State and roll.
+    // Extract player State.
     playerState = gameState.playerStates[gameState.turn];
+    // Make sure player is in Jail and a card is held.
     if (playerState.inJail && (playerState.getOutOfJailFree > 0)) {
+        // Update States.
         playerState.doublesRolled = 0;
         playerState.inJail == false;
         playerState.getOutOfJailFree -= 1;
+        // Put card back in the deck.
         if (gameState.communityChestJailFreeHeld && gameState.chanceJailFreeHeld){
             if ((Math.floor(Math.random() * 1) ) == 0) {
                 gameState.communityChestJailFreeHeld == false;
