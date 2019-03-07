@@ -77,7 +77,7 @@ function calculateRepair(playerState, houseCost, hotelCost) {
             hotels += 1;
         }
     }
-    return houses + hotels;
+    return ((houses * houseCost) + (hotels * hotelCost));
 }
 
 // Pull from Chance deck.
@@ -191,8 +191,6 @@ function moveToken(gameState) {
         if (gameState.chanceJailFreeHeld && gameState.chanceDeck[gameState.chanceDrawCount % 16] == 7) {
             gameState.chanceDrawCount += 1;
         }
-        // TODO:
-        // player translates to asset value (buldings) subset of asset value, required for a property repair calculation.
         let chance = pullChance(gameState.chanceDeck, gameState.chanceDrawCount, player, playerState.balance, playerState.position, gameState.middlePot, gameState.numPlayers)
         // Pull from Chance deck.
         // Return [String Event, Int NewPlayerBalance, Int NewPosition, Int NewMiddlePot, 
@@ -233,8 +231,6 @@ function moveToken(gameState) {
         if (gameState.communityChestJailFreeHeld && gameState.communityChestDeck[gameState.communityChestDrawCount % 16] == 7) {
             gameState.communityChestDrawCount += 1;
         }
-        // TODO:
-        // player translates to asset value (buldings) subset of asset value, required for a property repair calculation.
         let communityChest = pullCommunityChest(gameState.communityChestDeck, gameState.communityChestDrawCount, player, playerState.balance, playerState.position, gameState.middlePot, gameState.numPlayers)
         gameState.chanceDrawCount += 1;
         // Print card pulled.
