@@ -260,14 +260,14 @@ function moveToken(gameState) {
 
     // Land on Utillity 
     if (gameState.game.board.spaces[playerState.position].type == 7) {
-        // If not owned, purchase utility.
+        // If not owned, purchase Utility.
         if (!gameState.game.board.spaces[playerState.position].owned) {
             playerState.balance -= gameState.game.board.spaces[playerState.position].cost;
             gameState.game.board.spaces[playerState.position].owner = gameState.turn;
             playerState.owns.push(gameState.game.board.spaces[playerState.position]);
             return UpdateState(gameState, playerState);
         }
-        // Fulfill chance card obligation. 
+        // Fulfill Chance card obligation. 
         if (rentMultiplier == 10) {
             if (!gameState.game.board.spaces[playerState.position].owner == gameState.turn) {
                 // Roll dice.
@@ -285,11 +285,53 @@ function moveToken(gameState) {
                 && (gameState.game.board.spaces[12].owner == gameState.game.board.spaces[28].owner)) {
                 gameState.game.board.spaces[playerState.position].owner += (gameState.dice1 + gameState.dice2) * 10;
                 playerState.balance -= (gameState.dice1 + gameState.dice2) * 10;
+
             } else {
                 gameState.game.board.spaces[playerState.position].owner += (gameState.dice1 + gameState.dice2) * 4;
                 playerState.balance -= (gameState.dice1 + gameState.dice2) * 4;
             }
         }
+        return UpdateState(gameState, playerState);
+    }
+
+    // Land on Railroad
+    if (gameState.game.board.spaces[playerState.position].type == 4) {
+        // If not owned, purchase Railroad.
+        if (!gameState.game.board.spaces[playerState.position].owned) {
+            playerState.balance -= gameState.game.board.spaces[playerState.position].cost;
+            gameState.game.board.spaces[playerState.position].owner = gameState.turn;
+            playerState.owns.push(gameState.game.board.spaces[playerState.position]);
+            return UpdateState(gameState, playerState);
+        }
+        // Pay rent.
+        if (!gameState.game.board.spaces[playerState.position].owner == gameState.turn) {
+            setOwned = 0;
+            // Calculate how many Railroads are owned.
+            for (i = 0; i < gameState.game.board.spaces[playerState.position].set.length; i++) {
+                if (gameState.game.board.spaces[playerState.position].set[i].owned && (gameState.game.board.spaces[playerState.position].owner == gameState.game.board.spaces[playerState.position].set[i].owner)) {
+                    setOwned += 1;
+                }
+            }
+            // Pay owner.
+            if (setOwned == 1) {
+                gameState.game.board.spaces[playerState.position].owner += 25 * rentMultiplier;
+                playerState.balance -= 25 * rentMultiplier;
+            }
+            if (setOwned == 2) {
+                gameState.game.board.spaces[playerState.position].owner += 50 * rentMultiplier;
+                playerState.balance -= 50 * rentMultiplier;
+            }
+            if (setOwned == 3) {
+                gameState.game.board.spaces[playerState.position].owner += 100 * rentMultiplier;
+                playerState.balance -= 100 * rentMultiplier;
+            }
+            if (setOwned == 4) {
+                gameState.game.board.spaces[playerState.position].owner += 200 * rentMultiplier;
+                playerState.balance -= 200 * rentMultiplier;
+            }
+
+        }
+        return UpdateState(gameState, playerState);
     }
 
 
