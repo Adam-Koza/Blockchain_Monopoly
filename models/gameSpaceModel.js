@@ -66,7 +66,7 @@ var gameSpaceSchema = new Schema({
   four_house : {
     type : Number
   },
-  hotel : {
+  hotel_rent : {
     type : Number
   },
   mortgage_value : {

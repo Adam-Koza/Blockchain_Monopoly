@@ -334,8 +334,69 @@ function moveToken(gameState) {
         return UpdateState(gameState, playerState);
     }
 
+    // Land on Property
+    if (gameState.game.board.spaces[playerState.position].type == 4) {
+        // If not owned, purchase property.
+        if (!gameState.game.board.spaces[playerState.position].owned) {
+            playerState.balance -= gameState.game.board.spaces[playerState.position].cost;
+            gameState.game.board.spaces[playerState.position].owner = gameState.turn;
+            playerState.owns.push(gameState.game.board.spaces[playerState.position]);
+            return UpdateState(gameState, playerState);
+        }
+        // Pay rent.
+        if (!gameState.game.board.spaces[playerState.position].owner == gameState.turn) {
+            setOwned = 0;
+            // Calculate how many properties in the color set are owned.
+            for (i = 0; i < gameState.game.board.spaces[playerState.position].set.length; i++) {
+                if (gameState.game.board.spaces[playerState.position].set[i].owned && (gameState.game.board.spaces[playerState.position].owner == gameState.game.board.spaces[playerState.position].set[i].owner)) {
+                    setOwned += 1;
+                }
+            }
+            // Pay owner.
+            // Not full set.
+            if (!setOwned == gameState.game.board.spaces[playerState.position].set.length){
+                gameState.game.board.spaces[playerState.position].owner += gameState.game.board.spaces[playerState.position].rent;
+                playerState.balance -= gameState.game.board.spaces[playerState.position].rent;
+                return UpdateState(gameState, playerState);
+            }
+            // Full Set.
+            // With hotel.
+            if (gameState.game.board.spaces[playerState.position].hotel) {
+                gameState.game.board.spaces[playerState.position].owner += gameState.game.board.spaces[playerState.position].hotel_rent;
+                playerState.balance -= gameState.game.board.spaces[playerState.position].hotel_rent;
+                return UpdateState(gameState, playerState);
+            }
+            // With 1 house.
+            if (gameState.game.board.spaces[playerState.position].houses == 1) {
+                gameState.game.board.spaces[playerState.position].owner += gameState.game.board.spaces[playerState.position].one_house;
+                playerState.balance -= gameState.game.board.spaces[playerState.position].one_house;
+                return UpdateState(gameState, playerState);
+            }
+            // With 2 houses.
+            if (gameState.game.board.spaces[playerState.position].houses == 2) {
+                gameState.game.board.spaces[playerState.position].owner += gameState.game.board.spaces[playerState.position].two_house;
+                playerState.balance -= gameState.game.board.spaces[playerState.position].two_house;
+                return UpdateState(gameState, playerState);
+            }
+            // With 3 houses.
+            if (gameState.game.board.spaces[playerState.position].houses == 3) {
+                gameState.game.board.spaces[playerState.position].owner += gameState.game.board.spaces[playerState.position].three_house;
+                playerState.balance -= gameState.game.board.spaces[playerState.position].three_house;
+                return UpdateState(gameState, playerState);
+            }
+            // With 4 houses.
+            if (gameState.game.board.spaces[playerState.position].houses == 3) {
+                gameState.game.board.spaces[playerState.position].owner += gameState.game.board.spaces[playerState.position].four_house;
+                playerState.balance -= gameState.game.board.spaces[playerState.position].four_house;
+                return UpdateState(gameState, playerState);
+            }
+            // No buildings.
+            gameState.game.board.spaces[playerState.position].owner += gameState.game.board.spaces[playerState.position].rent * 2;
+            playerState.balance -= gameState.game.board.spaces[playerState.position].rent * 2;
+            return UpdateState(gameState, playerState);
 
-
-
+        }
+        return UpdateState(gameState, playerState);
+    }
 }
 
