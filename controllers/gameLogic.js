@@ -174,6 +174,18 @@ function moveToken(gameState) {
         return UpdateState(gameState, playerState);
     }
 
+    // Land on Jail (Just Visiting)
+    if (gameState.game.board.spaces[playerState.position].type == 6) {
+        return UpdateState(gameState, playerState);
+    }
+
+    // Land on Free Parking
+    if (gameState.game.board.spaces[playerState.position].type == 8) {
+        playerState.balance += gameState.middlePot;
+        gameState.middlePot = 500;
+        return UpdateState(gameState, playerState);
+    }
+
     // Chance Space
     if (gameState.game.board.spaces[playerState.position].type == 5) {
         let chance = pullChance(deck, drawCount, player, playerBalance, currentPosition, middlePot, playerCoun)
@@ -202,7 +214,7 @@ function moveToken(gameState) {
         }
     }
 
-    
+
 
 }
 
