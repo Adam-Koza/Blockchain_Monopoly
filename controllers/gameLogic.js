@@ -406,7 +406,7 @@ function moveToken(gameState) {
 // Player Get Out of Jail Free card.
 // Return [Object NewGameState, Object NewPlayerState]
 //
-function moveToken(gameState) {
+function playGetOfJailFree(gameState) {
 
     // Extract player State.
     playerState = gameState.playerStates[gameState.turn];
