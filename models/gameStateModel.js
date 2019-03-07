@@ -42,32 +42,36 @@ let gameStateSchema = new Schema({
   },
   chanceJailFreeHeld : {
     type : Boolean,
-    required : true // Can be zero but required
+    required : true
   },
   communityChestJailFreeHeld : {
     type : Boolean,
-    required : true // Can be zero but required
+    required : true
   },
   chanceDeck : {
     type : Array,
-    required : true // Can be zero but required
+    required : true
   },
   communityChestDeck : {
     type : Array,
-    required : true // Can be zero but required
+    required : true
   },
   chanceDrawCount : {
     type : Number,
-    required : true // Can be zero but required
+    required : true
   },
   communityChestDrawCount : {
     type : Number,
-    required : true // Can be zero but required
+    required : true
   },
   stateHistory : [{
     type : Schema.Types.ObjectId,
     ref : 'gameState'
   }],
+  historyHash : {
+    type : String,
+    required : true
+  },
   playerStates : [{
     type : Schema.Types.ObjectId,
     ref : 'playerState'
