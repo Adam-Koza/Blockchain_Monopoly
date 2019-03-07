@@ -78,7 +78,10 @@ contract Owned {
 
 // ----------------------------------------------------------------------------
 // Game Contract.
-// Token Source: https://theethereum.wiki/w/index.php/ERC20_Token_Standard
+// 
+// 
+// (Token Source: https://theethereum.wiki/w/index.php/ERC20_Token_Standard
+// (c) BokkyPooBah / Bok Consulting Pty Ltd 2018. The MIT Licence.)
 // ----------------------------------------------------------------------------
 contract Monopoly is ERC20Interface, Owned {
     using SafeMath for uint;
