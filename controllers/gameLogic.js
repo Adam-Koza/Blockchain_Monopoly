@@ -148,6 +148,9 @@ function pullCommunityChest(deck, drawCount, player, playerBalance, currentPosit
 }
 
 
+// Roll and move token, take game action.
+// Return [Object NewGameState, Object NewPlayerState]
+//
 function moveToken(gameState) {
     rentMultiplier = 1;
 
@@ -400,3 +403,29 @@ function moveToken(gameState) {
     }
 }
 
+// Player Get Out of Jail Free card.
+// Return [Object NewGameState, Object NewPlayerState]
+//
+function moveToken(gameState) {
+
+    // Extract player State and roll.
+    playerState = gameState.playerStates[gameState.turn];
+    if (playerState.inJail && (playerState.getOutOfJailFree > 0)) {
+        playerState.doublesRolled = 0;
+        playerState.inJail == false;
+        playerState.getOutOfJailFree -= 1;
+        if (gameState.communityChestJailFreeHeld && gameState.chanceJailFreeHeld){
+            if ((Math.floor(Math.random() * 1) ) == 0) {
+                gameState.communityChestJailFreeHeld == false;
+            } else {
+                gameState.chanceJailFreeHeld == false;
+            }
+        }
+        if (gameState.communityChestJailFreeHeld) {
+            gameState.communityChestJailFreeHeld == false;
+        } else {
+            gameState.chanceJailFreeHeld == false;
+        }
+    }
+    return UpdateState(gameState, playerState);
+}
