@@ -56,6 +56,14 @@ let gameStateSchema = new Schema({
     type : Array,
     required : true // Can be zero but required
   },
+  chanceDrawCount : {
+    type : Number,
+    required : true // Can be zero but required
+  },
+  communityChestDrawCount : {
+    type : Number,
+    required : true // Can be zero but required
+  },
   stateHistory : [{
     type : Schema.Types.ObjectId,
     ref : 'gameState'
