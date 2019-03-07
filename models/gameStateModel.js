@@ -22,7 +22,7 @@ let gameStateSchema = new Schema({
   },
   numPlayers : {  // TODO: this info is in the 'game' schema
     type : Number,
-    required : true
+    required : false
   },
   dice1 : {
     type : Number,
@@ -38,6 +38,22 @@ let gameStateSchema = new Schema({
   },
   middlePot : {
     type : Number,
+    required : true // Can be zero but required
+  },
+  chanceJailFreeHeld : {
+    type : Boolean,
+    required : true // Can be zero but required
+  },
+  communityChestJailFreeHeld : {
+    type : Boolean,
+    required : true // Can be zero but required
+  },
+  chanceDeck : {
+    type : Array,
+    required : true // Can be zero but required
+  },
+  communityChestDeck : {
+    type : Array,
     required : true // Can be zero but required
   },
   stateHistory : [{
