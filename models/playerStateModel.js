@@ -23,6 +23,9 @@ let playerStateSchema = new Schema({
   balance : {
     type : Number
   },
+  owns : [{
+    type : Number
+  }],
   position : {
     type : Number
   },
