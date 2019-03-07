@@ -40,7 +40,7 @@ var gameSpaceSchema = new Schema({
     type : Boolean
   },
   owner : {
-    type : Boolean
+    type : Number
   },
   imageURL : {
     type : String

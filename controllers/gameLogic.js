@@ -68,13 +68,15 @@ function nearestRailRoad(currentPosition, playerBalance) {
 // Calculate property repair chance card.
 // Return Int RepairCost.
 //
-function calculateRepair(player, houseCost, hotelCost) {
+function calculateRepair(playerState, houseCost, hotelCost) {
     houses = 0;
     hotels = 0;
-    // for each property owned by player {
-    // houses += property.houses * houseCost;
-    // hotels += property.hotel * hotelCost;
-    // }
+    for (i= 0; i < playerState.owns.length; i++) {
+        houses += gameState.game.board.spaces[playerState.owns[i]].houses;
+        if (gameState.game.board.spaces[playerState.owns[i]].hotel) {
+            hotels += 1;
+        }
+    }
     return houses + hotels;
 }
 
@@ -144,8 +146,6 @@ function pullCommunityChest(deck, drawCount, player, playerBalance, currentPosit
     if (card == 14) { return ['You have won second prize in a beauty contest. Collect $10.', playerBalance + 10, currentPosition, middlePot, false, false, false, 1]; }
     if (card == 15) { return ['You inherit $100.', playerBalance + 100, currentPosition, middlePot, false, false, false, 1]; }
 }
-
-
 
 
 function moveToken(gameState) {
@@ -260,7 +260,14 @@ function moveToken(gameState) {
 
     // Land on Utillity 
     if (gameState.game.board.spaces[playerState.position].type == 7) {
-
+        // If not owned, purchase utility.
+        if (!gameState.game.board.spaces[playerState.position].owned){
+            playerState.balance -= gameState.game.board.spaces[playerState.position].cost;
+            gameState.game.board.spaces[playerState.position].owner = gameState.turn;
+            playerState.owns.push(gameState.game.board.spaces[playerState.position]);
+            return UpdateState(gameState, playerState);
+        }
+        
 
     }
 
