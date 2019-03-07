@@ -72,6 +72,9 @@ let gameStateSchema = new Schema({
     type : String,
     required : true
   },
+  lastAction : {
+    type : String
+  },
   playerStates : [{
     type : Schema.Types.ObjectId,
     ref : 'playerState'
