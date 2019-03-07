@@ -36,6 +36,12 @@ var gameSpaceSchema = new Schema({
     type : String,
     required : true
   },
+  owned : {
+    type : Boolean
+  },
+  owner : {
+    type : Number
+  },
   imageURL : {
     type : String
   },
@@ -60,7 +66,7 @@ var gameSpaceSchema = new Schema({
   four_house : {
     type : Number
   },
-  hotel : {
+  hotel_rent : {
     type : Number
   },
   mortgage_value : {
@@ -71,6 +77,12 @@ var gameSpaceSchema = new Schema({
   },
   set : {
     type : Array
+  },
+  houses : {
+    type : Number
+  },
+  hotel : {
+    type : Boolean
   },
   created_at : {
     type : Date,
