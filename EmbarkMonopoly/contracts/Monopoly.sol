@@ -77,7 +77,7 @@ contract Owned {
 }
 
 // ----------------------------------------------------------------------------
-// Game contract
+// Game Contract.
 // Token Source: https://theethereum.wiki/w/index.php/ERC20_Token_Standard
 // ----------------------------------------------------------------------------
 contract Monopoly is ERC20Interface, Owned {
