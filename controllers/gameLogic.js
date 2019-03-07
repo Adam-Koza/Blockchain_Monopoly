@@ -428,3 +428,24 @@ function playGetOfJailFree(gameState) {
     }
     return UpdateState(gameState, playerState);
 }
+
+function UpdateState(gameState, playerState) {
+    //Mongo get oldState
+    oldState = {};
+    // Push old state to history.
+    gameState.stateHistory.push(oldState);
+    // Set new player state.
+    gameState.playerStates[gameState.turn] = playerState;
+    // Determine if players turn is over (doubles).
+    if (!playerState.doublesRolled > 0) {
+        gameState.turn = (gameState.turn + 1) & gameState.playerStates.length;
+    }
+    // Generate history hash.
+    var hash = require('object-hash');
+    gameState.historyHash = hash(gameState.stateHistory);
+    // Mongo push new gameState.
+    // ...
+
+    return playerState.player.username + " Whatever game action occured.";
+}
+
