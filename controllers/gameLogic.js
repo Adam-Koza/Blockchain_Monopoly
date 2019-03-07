@@ -256,9 +256,14 @@ function moveToken(gameState) {
         if (chance[6]) {
             return UpdateState(gameState, playerState);
         }
+    }
+
+    // Land on Utillity 
+    if (gameState.game.board.spaces[playerState.position].type == 7) {
 
 
     }
+
 
 
 
