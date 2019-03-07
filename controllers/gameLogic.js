@@ -83,8 +83,6 @@ function calculateRepair(player, houseCost, hotelCost) {
 //          Bool JailFree, Bool InJail, Bool TurnOver, Bool PayPlayers, Int RentMultiplier]
 //
 function pullChance(deck, drawCount, player, playerBalance, currentPosition, middlePot, playerCount) {
-    // To Do: Remove Get Out of Jail Free card from deck if drawn and held.
-
     index = drawCount % 16;
     card = deck[index];
     if (card == 0) { return ['Advance to "Go", collect $200', playerBalance + 200, 0, middlePot, false, false, true, false, 1]; }
@@ -127,8 +125,6 @@ function pullChance(deck, drawCount, player, playerBalance, currentPosition, mid
 //          Bool JailFree, Bool InJail, Bool PlayersPay, Int PlayersPayAmount]
 //
 function pullCommunityChest(deck, drawCount, player, playerBalance, currentPosition, middlePot, playerCount) {
-    // To Do: Remove Get Out of Jail Free card from deck if drawn and held.
-
     index = drawCount % 16;
     card = deck[index];
     if (card == 0) { return ['Advance to "Go", collect $200', playerBalance + 200, 0, middlePot, false, false, false, 1]; }
@@ -140,7 +136,7 @@ function pullCommunityChest(deck, drawCount, player, playerBalance, currentPosit
     if (card == 6) { return ['Grand Opera Night. Collect $50 from every player for opening night seats.', playerBalance + (playerCount - 1) * 50, currentPosition, middlePot, false, false, true, 50]; }
     if (card == 7) { return ['Holiday Fund matures. Receive $100.', playerBalance + 100, currentPosition, middlePot, false, false, false, 1]; }
     if (card == 8) { return ['Income tax refund. Collect $20.', playerBalance + 20, currentPosition, middlePot, false, false, false, 1]; }
-    if (card == 9) { return ["It is your birthday. Collect $10 from every player.", playerBalance + (playerCount - 1) * 10, currentPosition, 0, middlePot, false, false, true, 10]; }
+    if (card == 9) { return ["It is your birthday. Collect $10 from every player.", playerBalance + (playerCount) * 10, currentPosition, 0, middlePot, false, false, true, 10]; }
     if (card == 10) { return ['Life insurance matures. Collect $100.', playerBalance + 100, currentPosition, middlePot, false, false, false, 1]; }
     if (card == 11) { return ['Hospital Fees. Pay $50.', playerBalance - 50, currentPosition, middlePot + 50, false, false, false, 1]; }
     if (card == 12) { return ['School fees. Pay $50.', playerBalance - 50, currentPosition, middlePot + 50, false, false, false, 1]; }
@@ -186,19 +182,29 @@ function moveToken(gameState) {
         return UpdateState(gameState, playerState);
     }
 
-    // Chance Space
+    // Land on Chance Space 
     if (gameState.game.board.spaces[playerState.position].type == 5) {
-        let chance = pullChance(deck, drawCount, player, playerBalance, currentPosition, middlePot, playerCoun)
+        // Skip Chance Jail Free card if held.
+        if (gameState.chanceJailFreeHeld && gameState.chanceDeck[gameState.chanceDrawCount % 16] == 7) {
+            gameState.chanceDrawCount += 1;
+        }
+        // TODO:
+        // player translates to asset value (buldings) subset of asset value, required for a property repair calculation.
+        let chance = pullChance(gameState.chanceDeck, gameState.chanceDrawCount, player, playerState.balance, playerState.position, gameState.middlePot, gameState.numPlayers)
         // Pull from Chance deck.
         // Return [String Event, Int NewPlayerBalance, Int NewPosition, Int NewMiddlePot, 
         //          Bool JailFree, Bool InJail, Bool TurnOver, Bool PayPlayers, Int RentMultiplier]
         //
+        gameState.chanceDrawCount += 1;
+        // Print card pulled.
         console.log(chance[0]);
         playerState.balance = chance[1];
         playerState.position = chance[2];
         gameState.middlePot = chance[3];
+        // Get Jail Free card.
         if (chance[4]) {
             playerState.getOutOfJailFree += 1;
+            gameState.chanceJailFreeHeld = true;
         }
         playerState.inJail = chance[5];
         // Pay pach player $50.
@@ -212,6 +218,46 @@ function moveToken(gameState) {
         if (chance[6]) {
             return UpdateState(gameState, playerState);
         }
+    }
+
+    // Land on Community Chest Space 
+    if (gameState.game.board.spaces[playerState.position].type == 2) {
+        // Pull from Community Chest deck.
+        // Return [String Event, Int NewPlayerBalance, Int NewPosition, Int NewMiddlePot, 
+        //          Bool JailFree, Bool InJail, Bool PlayersPay, Int PlayersPayAmount]
+        //
+        // Skip Community Chest Jail Free card if held.
+        if (gameState.communityChestJailFreeHeld && gameState.communityChestDeck[gameState.communityChestDrawCount % 16] == 7) {
+            gameState.communityChestDrawCount += 1;
+        }
+        // TODO:
+        // player translates to asset value (buldings) subset of asset value, required for a property repair calculation.
+        let communityChest = pullCommunityChest(gameState.communityChestDeck, gameState.communityChestDrawCount, player, playerState.balance, playerState.position, gameState.middlePot, gameState.numPlayers)
+        gameState.chanceDrawCount += 1;
+        // Print card pulled.
+        console.log(communityChest[0]);
+        playerState.balance = communityChest[1];
+        playerState.position = communityChest[2];
+        gameState.middlePot = communityChest[3];
+        // Get Jail Free card.
+        if (communityChest[4]) {
+            playerState.getOutOfJailFree += 1;
+            gameState.communityChestJailFreeHeld = true;
+        }
+        playerState.inJail = communityChest[5];
+        // Collect $x from each player.
+        if (communityChest[6]) {
+            for (i = 0; i < gameState.playerStates.length; i++) {
+                gameState.playerStates[i].balance -= communityChest[7];
+            }
+            playerState.balance += communityChest[7]
+        }
+        // Turn over?
+        if (chance[6]) {
+            return UpdateState(gameState, playerState);
+        }
+
+
     }
 
 
