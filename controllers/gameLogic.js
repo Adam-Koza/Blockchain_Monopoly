@@ -22,6 +22,8 @@ function roll(inJail, doublesCount, currentPosition) {
     if (inJail) { return [true, 0, 10, dice1, dice2, false, true]; }
     // Land on Go To Jail.
     if (currentPosition == 30) { return [true, 0, 10, dice1, dice2, false, true]; }
+    // Land on Go.
+    if (currentPosition == 0) { return [true, doublesCount, 0, dice1, dice2, true, true]; }
     // Did you pass Go?
     if (currentPosition < oldPosition) { return [false, doublesCount, currentPosition, dice1, dice2, true, false]; }
     else { return [false, doublesCount, currentPosition, dice1, dice2, false, false]; }
@@ -150,8 +152,7 @@ function pullCommunityChest(deck, drawCount, player, playerBalance, currentPosit
 
 
 
-function moveToken() {
-    gameState = {};
+function moveToken(gameState) {
     RentMultiplier = 1;
 
     // Extract player State and roll.
