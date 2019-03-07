@@ -71,7 +71,7 @@ function nearestRailRoad(currentPosition, playerBalance) {
 function calculateRepair(playerState, houseCost, hotelCost) {
     houses = 0;
     hotels = 0;
-    for (i= 0; i < playerState.owns.length; i++) {
+    for (i = 0; i < playerState.owns.length; i++) {
         houses += gameState.game.board.spaces[playerState.owns[i]].houses;
         if (gameState.game.board.spaces[playerState.owns[i]].hotel) {
             hotels += 1;
@@ -149,7 +149,7 @@ function pullCommunityChest(deck, drawCount, player, playerBalance, currentPosit
 
 
 function moveToken(gameState) {
-    RentMultiplier = 1;
+    rentMultiplier = 1;
 
     // Extract player State and roll.
     playerState = gameState.playerStates[gameState.turn];
@@ -213,7 +213,7 @@ function moveToken(gameState) {
                 gameState.playerStates[i].balance += 50;
             }
         }
-        RentMultiplier = chance[8];
+        rentMultiplier = chance[8];
         // Turn over?
         if (chance[6]) {
             return UpdateState(gameState, playerState);
@@ -261,14 +261,35 @@ function moveToken(gameState) {
     // Land on Utillity 
     if (gameState.game.board.spaces[playerState.position].type == 7) {
         // If not owned, purchase utility.
-        if (!gameState.game.board.spaces[playerState.position].owned){
+        if (!gameState.game.board.spaces[playerState.position].owned) {
             playerState.balance -= gameState.game.board.spaces[playerState.position].cost;
             gameState.game.board.spaces[playerState.position].owner = gameState.turn;
             playerState.owns.push(gameState.game.board.spaces[playerState.position]);
             return UpdateState(gameState, playerState);
         }
-        
-
+        // Fulfill chance card obligation. 
+        if (rentMultiplier == 10) {
+            if (!gameState.game.board.spaces[playerState.position].owner == gameState.turn) {
+                // Roll dice.
+                dice1 = Math.floor(Math.random() * 5) + 1;
+                dice2 = Math.floor(Math.random() * 5) + 1;
+                gameState.game.board.spaces[playerState.position].owner += (dice1 + dice2) * 10;
+                playerState.balance -= (dice1 + dice2) * 10;
+            }
+            return UpdateState(gameState, playerState);
+        }
+        // Pay rent.
+        if (!gameState.game.board.spaces[playerState.position].owner == gameState.turn) {
+            // Owner has both Utilities.
+            if ((gameState.game.board.spaces[28].owned)
+                && (gameState.game.board.spaces[12].owner == gameState.game.board.spaces[28].owner)) {
+                gameState.game.board.spaces[playerState.position].owner += (gameState.dice1 + gameState.dice2) * 10;
+                playerState.balance -= (gameState.dice1 + gameState.dice2) * 10;
+            } else {
+                gameState.game.board.spaces[playerState.position].owner += (gameState.dice1 + gameState.dice2) * 4;
+                playerState.balance -= (gameState.dice1 + gameState.dice2) * 4;
+            }
+        }
     }
 
 
