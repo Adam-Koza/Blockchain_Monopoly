@@ -10,8 +10,8 @@ playerController.index = function (req, res) {
     }
     else {
       res.locals.players = players;
-      //res.render('players/index');
-      res.send(players);
+      res.render('./player/index', { title: 'Blockchain Monopoly' });
+//      res.send(players);
     }
   });
 };
@@ -42,8 +42,7 @@ playerController.show = function (req, res) {
     }
     else {
       res.locals.player = player;
-      //res.render('players/show')
-      res.send(player);
+      res.render('./player/show');
     }
   })
 };
@@ -51,7 +50,14 @@ playerController.show = function (req, res) {
 // Create a new player
 // initialize empty and redirect
 playerController.new = function (req, res) {
-  res.render('players/new');
+  res.locals.title = "New Player";
+  res.locals.player = {
+    username: "",
+    publicKey: "",
+    balance: ""
+  };
+  res.locals.message  = "";
+  res.render('./player/new');
 };
 
 // Save a new player
@@ -64,8 +70,8 @@ playerController.save = function (req, res) {
     }
     else {
       console.log("Successfully saved new player.");
-      //res.redirect("/players/index");
-      res.send("Succesffully saved new player.");
+      res.redirect("/player/index");
+      //res.send("Succesffully saved new player.");
     }
   });
 };
@@ -85,8 +91,8 @@ playerController.update = function (req, res) {
         console.log("Error: " + err);
       }
       else {
-        //res.redirect("/players/show/" + player._id);
-        res.send("Updated player: " + player._id);
+        res.redirect("/player/index");
+        //res.send("Updated player: " + player._id);
       }
     }
   );
@@ -102,8 +108,8 @@ playerController.delete = function (req, res) {
       }
       else {
         console.log("Player deleted: \n", player);
-        //res.redirect("/players");
-        res.send("Deleted player: \n", player);
+        res.redirect("/player/index");
+        //res.send("Deleted player: \n", player);
       }
     }
   );

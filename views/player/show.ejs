@@ -1,0 +1,37 @@
+<!-- Displaying a user -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= player['username'] %>'s info</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  </head>
+  <body>
+
+    <% include ../navBar %>
+
+    <div class="container">
+
+        <h1><%= player['username'] %></h1>
+        <p>
+          Address: <%= player['publicKey'] %>
+          <br/>
+          Balance: <%= player['balance'] %>
+        </p>
+
+        <div>
+            <form action="/player/delete/<%= player['_id'] %>" method="GET" style="display: inline;">
+            <br>
+            <button class="btn btn-outline-danger btn-sm" type="submit">Delete <%= player['username'] %>'s profile</button>
+            </form>
+        </div>
+        <hr>
+        <p>
+          Games participated in: ...
+        </p>
+
+
+
+    </div>
+  </body>
+</html>

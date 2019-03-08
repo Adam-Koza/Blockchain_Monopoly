@@ -1,4 +1,7 @@
-// This is the model for the history of a game.
+// This is the model for game history. It currently
+// contains a list of all the past games that have ended.
+// Could be improved to contain the current (last) game
+// state for games that have either ended or are in progress
 
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
@@ -12,10 +15,14 @@ let historySchema = new Schema({
     type : Schema.Types.ObjectId,
     ref : 'game'
   },
-  moves : [{
+  lastGameState : {
     type : Schema.Types.ObjectId,
-    ref : 'move'
-  }], // Note: array of moves
+    ref : 'gameState'
+  },
+  winner : {
+    type : Schema.Types.ObjectId,
+    ref : 'player'
+  },
   created_at : {
     type : Date,
     default : Date.now
