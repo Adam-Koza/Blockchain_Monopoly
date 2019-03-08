@@ -51,7 +51,14 @@ playerController.show = function (req, res) {
 // Create a new player
 // initialize empty and redirect
 playerController.new = function (req, res) {
-  res.render('players/new');
+  res.locals.title = "New Player";
+  res.locals.player = {
+    username: "",
+    publicKey: "",
+    balance: ""
+  };
+  res.locals.message  = "";
+  res.render('./player/new');
 };
 
 // Save a new player
