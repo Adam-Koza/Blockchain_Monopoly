@@ -1,0 +1,16 @@
+<!-- Player information partial -->
+
+<div class="player-details">
+  <h2> <a href="/player/<%= player['_id']%>">
+  		<%- player['username'] %>
+  </h2></a>
+  <div>Public address: <%- player['publicKey'] %></div>
+  <div>Token balance: <%- player['balance'] %></div>
+  <br>
+  <a class="btn btn-outline-warning btn-sm" role="button" href="/player/update/<%= player['id']%>">
+  Update
+  </a>
+  <a class="btn btn-danger btn-sm" role="button" href="/player/delete/<%= player['id']%>" method="DELETE">
+  Delete
+  </a>
+</div>

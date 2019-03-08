@@ -10,8 +10,8 @@ playerController.index = function (req, res) {
     }
     else {
       res.locals.players = players;
-      //res.render('players/index');
-      res.send(players);
+      res.render('./player/index', { title: 'Blockchain Monopoly' });
+//      res.send(players);
     }
   });
 };
