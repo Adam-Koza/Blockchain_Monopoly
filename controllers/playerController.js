@@ -42,8 +42,7 @@ playerController.show = function (req, res) {
     }
     else {
       res.locals.player = player;
-      //res.render('players/show')
-      res.send(player);
+      res.render('./player/show');
     }
   })
 };
@@ -71,8 +70,8 @@ playerController.save = function (req, res) {
     }
     else {
       console.log("Successfully saved new player.");
-      //res.redirect("/players/index");
-      res.send("Succesffully saved new player.");
+      res.redirect("/player/index");
+      //res.send("Succesffully saved new player.");
     }
   });
 };
@@ -92,8 +91,8 @@ playerController.update = function (req, res) {
         console.log("Error: " + err);
       }
       else {
-        //res.redirect("/players/show/" + player._id);
-        res.send("Updated player: " + player._id);
+        res.redirect("/player/index");
+        //res.send("Updated player: " + player._id);
       }
     }
   );
@@ -109,8 +108,8 @@ playerController.delete = function (req, res) {
       }
       else {
         console.log("Player deleted: \n", player);
-        //res.redirect("/players");
-        res.send("Deleted player: \n", player);
+        res.redirect("/player/index");
+        //res.send("Deleted player: \n", player);
       }
     }
   );
