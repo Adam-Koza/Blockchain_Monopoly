@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var historyController = require('../controllers/historyController');
 
+// Display the leaderboard
+router.get('/leaderboard', historyController.leaderboard);
+
 // Display all game history
 router.get('/index', historyController.index);
 

@@ -8,7 +8,9 @@ var database = require('./database/database');
 var indexRouter = require('./routes/index');
 var gameRouter = require('./routes/game');
 var playerRouter = require('./routes/player');
-var historyRouter = require('./routes/history');
+// var historyRouter = require('./routes/history');
+var boardRouter = require('./routes/board');
+// var stateRouter = require('./routes/state');
 
 database();
 
@@ -27,7 +29,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/game', gameRouter);
 app.use('/player', playerRouter);
-app.use('/history', historyRouter);
+// app.use('/history', historyRouter);
+app.use('/board', boardRouter);
+// app.use('/state', stateRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

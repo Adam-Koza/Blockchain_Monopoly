@@ -94,6 +94,7 @@ historyController.update = function (req, res) {
   );
 };
 
+
 // Delete an existing game
 historyController.delete = function (req, res) {
   History.findByIdAndDelete(
