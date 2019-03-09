@@ -1,8 +1,10 @@
 const Game = require('../models/gameModel');
 
+var gameController = {};
+
 // A random test to see if the controller, routes, mongodb works
 // for inserting a new record
-exports.createTest = function (req, res, next) {
+gameController.createTest = function (req, res, next) {
     console.log(req);
 
     let name = 'game controller test';
@@ -17,15 +19,22 @@ exports.createTest = function (req, res, next) {
 };
 
 // Creating a new game
-exports.create = function (req, res, next) {
-    console.log(req.body);
+gameController.save = function (req, res, next) {
+  let newGame = new Game(req.body);
 
-    const newGame= new Game(req.body);
-
-    newGame.save().then(() => {
-        res.redirect('')
-    }).catch(next)
+  newGame.save((err) => {
+    if (err) {
+      console.log("Error: " + err);
+    }
+    else {
+      console.log("Successfully saved new player.");
+      //res.redirect("/player/index");
+      //res.send("Succesffully saved new player.");
+    }
+  });
 };
+
+module.exports = gameController;
 
 // Adding a new player to a game
 
