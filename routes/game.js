@@ -19,8 +19,9 @@ router.get('/history', function(req, res, next) {
   res.render('./game/history', { title: 'Game History' });
 });
 
-router.get('/game/:id', function(req, res, next) {
-
+router.get('/:id', function(req, res, next) {
+  console.log(req.params.id);
+  res.render('./game/board', { title: 'Game #' + req.params.id, id: req.params.id });
 });
 
 router.post('/payload', function(req, res, next) {
