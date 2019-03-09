@@ -7,10 +7,10 @@ var playerController = require('../controllers/playerController');
 // });
 
 // Display all players
-router.get('/show', playerController.index);
+router.get('/index', playerController.index);
 
 // Display player by id
-router.get('/show/:id', playerController.show);
+router.get('/index/:id', playerController.show);
 
 // Create new player page
 // creating new player should be done automatically
@@ -18,9 +18,10 @@ router.get('/show/:id', playerController.show);
 router.get('/new', playerController.new);
 
 // Saving a new player
-router.post('/create', playerController.save);
+router.post('/save', playerController.save);
 
 // Update an existing player
+router.get('/update/:id', playerController.showUpdate);
 router.post('/update/:id', playerController.update);
 
 // Delete an existing player
