@@ -23,7 +23,7 @@ boardController.index = function (req, res) {
 boardController.show = function (req, res) {
   Board.findOne({
     _id: req.params.id
-  }).exec((err, player) => {
+  }).exec((err, board) => {
     if (err) {
       console.log("Error: " + err);
     }
@@ -67,7 +67,8 @@ boardController.update = function (req, res) {
       }
       else {
         console.log("Updated board: " + board._id);
-        res.redirect("/board/index");
+        res.send("Updated board: " + board._id);
+        // res.redirect("/board/index");
       }
     }
   );
