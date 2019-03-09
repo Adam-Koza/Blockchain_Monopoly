@@ -11,7 +11,6 @@ playerController.index = function (req, res) {
     else {
       res.locals.players = players;
       res.render('./player/index', { title: 'Blockchain Monopoly' });
-//      res.send(players);
     }
   });
 };
@@ -47,6 +46,21 @@ playerController.show = function (req, res) {
   })
 };
 
+// Show player info to update
+playerController.showUpdate = function (req, res) {
+  Player.findOne({
+    _id: req.params.id
+  }).exec((err, player) => {
+    if (err) {
+      console.log("Error: " + err);
+    }
+    else {
+      res.locals.player = player;
+      res.render('./player/update');
+    }
+  })
+};
+
 // Create a new player
 // initialize empty and redirect
 playerController.new = function (req, res) {
@@ -56,7 +70,6 @@ playerController.new = function (req, res) {
     publicKey: "",
     balance: ""
   };
-  res.locals.message  = "";
   res.render('./player/new');
 };
 
@@ -81,18 +94,18 @@ playerController.update = function (req, res) {
   Player.findByIdAndUpdate(
     req.params.id,
     {
-      $set: req.params.body
+      $set: req.body
     },
     {
-      new: true
+      new: true   // returns the modified data instead of original
     },
     (err, player) => {
       if (err) {
         console.log("Error: " + err);
       }
       else {
+        console.log("Updated player: " + player._id);
         res.redirect("/player/index");
-        //res.send("Updated player: " + player._id);
       }
     }
   );

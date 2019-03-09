@@ -21,6 +21,7 @@ router.get('/new', playerController.new);
 router.post('/save', playerController.save);
 
 // Update an existing player
+router.get('/update/:id', playerController.showUpdate);
 router.post('/update/:id', playerController.update);
 
 // Delete an existing player

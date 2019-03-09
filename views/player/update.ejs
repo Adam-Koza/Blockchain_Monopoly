@@ -12,13 +12,13 @@
     <% include ../navBar %>
 
     <div class="container">
-        <h1>Create a new player</h1>
-        <p>For testing purposes. A new player should be programatically created</p>
+        <h1>Update player: <%- player['username'] %></h1>
+        <p>For testing purposes. A player should be programatically updated</p>
 
         <hr>
 
         <div class="col-5">
-          <form class="form-group" action="/player/save" method="post">
+          <form class="form-group" action="/player/update/<%- player['_id'] || "" %>" method="post">
             Username: <br>
             <input class="form-control" type="text" name="username" value="<%- player['username'] || "" %>" required>
             <br>
