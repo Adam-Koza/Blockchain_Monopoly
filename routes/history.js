@@ -16,6 +16,12 @@ router.get('/new', historyController.new);
 // Saving a new game history
 router.post('/save', historyController.save);
 
+//------
+// Everything below is for testing purposes,
+// we shouldn't be changing any game history
+// as it will be recorded on the blockchain
+//-------
+
 // Update an existing game history
 router.get('/update/:id', historyController.showUpdate);
 router.post('/update/:id', historyController.update);

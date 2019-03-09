@@ -1,0 +1,42 @@
+<!-- Displaying a game history -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= history['username'] %>'s info</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  </head>
+  <body>
+
+    <% include ../navBar %>
+
+    <div class="container">
+
+        <h1><%= history['username'] %></h1>
+        <p>
+          Address: <%= history['publicKey'] %>
+          <br/>
+          Balance: <%= history['balance'] %>
+          <br/>
+          <br/>
+          Joined: <%= history['created_at'] %>
+          <br/>
+          Last updated: <%= history['updated_at'] %>
+        </p>
+
+        <div>
+            <form action="/history/delete/<%= history['_id'] %>" method="GET" style="display: inline;">
+            <br>
+            <button class="btn btn-outline-danger btn-sm" type="submit">Delete <%= history['username'] %>'s profile</button>
+            </form>
+        </div>
+        <hr>
+        <p>
+          Game moves history: ...
+        </p>
+
+
+
+    </div>
+  </body>
+</html>
