@@ -18,7 +18,7 @@ pieceController.index = function (req, res) {
 
 // Get a single board by id
 pieceController.show = function (req, res) {
-  Board.findOne({
+  Piece.findOne({
     _id: req.params.id
   }).exec((err, piece) => {
     if (err) {
@@ -34,7 +34,7 @@ pieceController.show = function (req, res) {
 
 // Save a new piece
 pieceController.save = function (req, res) {
-  let newPiece = new Board(req.body);
+  let newPiece = new Piece(req.body);
 
   newPiece.save((err) => {
     if (err) {
@@ -50,7 +50,7 @@ pieceController.save = function (req, res) {
 
 // Update an existing piece
 pieceController.update = function (req, res) {
-  Board.findByIdAndUpdate(
+  Piece.findByIdAndUpdate(
     req.params.id,
     {
       $set: req.body
@@ -73,14 +73,14 @@ pieceController.update = function (req, res) {
 
 // Delete an existing piece
 pieceController.delete = function (req, res) {
-  Board.findByIdAndDelete(
+  Piece.findByIdAndDelete(
     req.params.id,
     (err, piece) => {
       if (err) {
         console.log("Error: " + err);
       }
       else {
-        console.log("Board deleted: \n", piece);
+        console.log("Piece deleted: \n", piece);
         // res.redirect("/player/index");
         res.send("Deleted piece: \n", piece);
       }
