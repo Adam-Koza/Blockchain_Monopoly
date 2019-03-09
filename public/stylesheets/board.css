@@ -1,0 +1,157 @@
+html {
+    width: 100%;
+    height: 120%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+  }
+  
+#mainContainer {
+    width: 100%;
+    height: 100%;
+    display: flex !important;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+}
+
+#playerStats {
+    width: 10%;
+    height: 100%;
+    background-color: blue;
+}
+
+#board {
+    width: 60%;
+    height: 100%;
+    background-image: url("../images/monopolyBoard.jpg");
+    background-size:100% 100%;
+}
+
+#rightContainer {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#playerTurn {
+    width: 100%;
+    height: 10%;
+    background-color:black;
+}
+
+#avilableActions {
+    width: 100%;
+    height: 40%;
+    background-color: red;
+}
+
+#gameHistory {
+    width: 100%;
+    height: 20%;
+    background-color: yellow;
+}
+
+.topBottom {
+    height: 13.5%;
+    width: 100%;
+    display: flex !important;
+    flex-direction: row;
+}
+
+#left {
+    width: 13.5%;
+    height: 100%;
+}
+
+#middle {
+    width: 100%;
+    height: 72.9%;
+    display: flex !important;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#right {
+    width: 13.5%;
+}
+
+.cornerSpace {
+    height: 100%;
+    width: 13.5%;
+    background: black;
+}
+
+.topBottomSpace {
+    height: 100%;
+    width: 8.1%;
+}
+
+.middleSpace {
+    height: 11.13%;
+    width: 100%;
+}
+
+.topBuildings {
+    width: 100%;
+    height: 14%;
+    margin-bottom: 5%;
+    margin-top: 133%;
+    display: flex !important;
+    flex-direction: row;
+    justify-content: space-evenly;
+    
+}
+
+.bottomBuildings {
+    width: 100%;
+    height: 14%;
+    margin-top: 5%;
+    display: flex !important;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.rightBuildings {
+    width: 14%;
+    height: 100%;
+    margin-left: 3%;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.leftBuildings {
+    width: 14%;
+    height: 100%;
+    margin-right: 3%;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-evenly;
+    float: right;
+}
+
+.topBottomHouse {
+    width: 21%;
+    background-color: green; 
+}
+
+.topBottomHotel {
+    width: 42%;
+    background-color: red; 
+}
+
+.middleHouse {
+    height: 21%;
+    background-color: green; 
+}
+
+.middleHotel {
+    height: 42%;
+    background-color: red; 
+}
+  

@@ -402,7 +402,7 @@ contract Verifier {
         }
 
         // Perform the elliptic curve recover operation
-        bytes32 check = keccak256(header, message);
+        bytes32 check = keccak256(abi.encodePacked(header, message));
 
         return ecrecover(check, v, r, s);
     }
