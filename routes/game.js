@@ -28,7 +28,7 @@ router.post('/payload', function(req, res, next) {
   console.log(req.body);
 });
 
-router.post('/new/:name', gameController.create);
-router.post('/newTest', gameController.createTest);
+// router.post('/new/:name', gameController.create);
+// router.post('/newTest', gameController.createTest);
 
 module.exports = router;

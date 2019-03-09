@@ -89,7 +89,7 @@ let gameStateSchema = new Schema({
   }
 });
 
-// TODO: functions to check that the state meets all the reqs 
+// TODO: functions to check that the state meets all the reqs
 
 // Sets the updated_at parameter equal to the current time
 gameStateSchema.pre('save', function(next){

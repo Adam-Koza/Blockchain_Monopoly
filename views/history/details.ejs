@@ -1,0 +1,16 @@
+<!-- Game history information partial -->
+
+<div class="history-details">
+  <h2> <a href="/history/index/<%= history['_id']%>">
+  		<%- history['username'] %>
+  </h2></a>
+  <div>Public address: <%- history['publicKey'] %></div>
+  <div>Token balance: <%- history['balance'] %></div>
+  <br>
+  <a class="btn btn-outline-warning btn-sm" role="button" href="/history/update/<%= history['id']%>">
+  Update
+  </a>
+  <a class="btn btn-danger btn-sm" role="button" href="/history/delete/<%= history['id']%>" method="DELETE">
+  Delete
+  </a>
+</div>
