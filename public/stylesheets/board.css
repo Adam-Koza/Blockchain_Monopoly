@@ -154,4 +154,34 @@ body {
     height: 42%;
     background-color: red; 
 }
+
+.bottomPiece {
+    margin-top: 80%;
+    max-width: 50%;
+    height: auto;
+}
+
+.topPiece {
+    margin-top: 40%;
+    max-width: 50%;
+    height: auto;
+}
+
+.leftPiece {
+    margin-left: 17%;
+    max-width: 50%;
+    height: auto;
+}
+
+.rightPiece {
+    margin-left: 45%;
+    max-width: 50%;
+    height: auto;
+}
+
+#state {
+    display: none;
+}
+
+
   
