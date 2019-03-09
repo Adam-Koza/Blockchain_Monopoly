@@ -18,7 +18,7 @@ spaceController.index = function (req, res) {
 
 // Get a single space by id
 spaceController.show = function (req, res) {
-  Board.findOne({
+  Space.findOne({
     _id: req.params.id
   }).exec((err, space) => {
     if (err) {
@@ -34,7 +34,7 @@ spaceController.show = function (req, res) {
 
 // Save a new space
 spaceController.save = function (req, res) {
-  let newPiece = new Board(req.body);
+  let newPiece = new Space(req.body);
 
   newPiece.save((err) => {
     if (err) {
@@ -50,7 +50,7 @@ spaceController.save = function (req, res) {
 
 // Update an existing space
 spaceController.update = function (req, res) {
-  Board.findByIdAndUpdate(
+  Space.findByIdAndUpdate(
     req.params.id,
     {
       $set: req.body
@@ -73,14 +73,14 @@ spaceController.update = function (req, res) {
 
 // Delete an existing space
 spaceController.delete = function (req, res) {
-  Board.findByIdAndDelete(
+  Space.findByIdAndDelete(
     req.params.id,
     (err, space) => {
       if (err) {
         console.log("Error: " + err);
       }
       else {
-        console.log("Board deleted: \n", space);
+        console.log("Space deleted: \n", space);
         // res.redirect("/player/index");
         res.send("Deleted space: \n", space);
       }
