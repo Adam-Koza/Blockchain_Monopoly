@@ -1,8 +1,8 @@
-<!-- Displaying a user -->
+<!-- Displaying a game history -->
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= player['username'] %>'s info</title>
+    <title><%= history['username'] %>'s info</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   </head>
@@ -12,27 +12,27 @@
 
     <div class="container">
 
-        <h1><%= player['username'] %></h1>
+        <h1><%= history['username'] %></h1>
         <p>
-          Address: <%= player['publicKey'] %>
+          Address: <%= history['publicKey'] %>
           <br/>
-          Balance: <%= player['balance'] %>
+          Balance: <%= history['balance'] %>
           <br/>
           <br/>
-          Joined: <%= player['created_at'] %>
+          Joined: <%= history['created_at'] %>
           <br/>
-          Last updated: <%= player['updated_at'] %>
+          Last updated: <%= history['updated_at'] %>
         </p>
 
         <div>
-            <form action="/player/delete/<%= player['_id'] %>" method="GET" style="display: inline;">
+            <form action="/history/delete/<%= history['_id'] %>" method="GET" style="display: inline;">
             <br>
-            <button class="btn btn-outline-danger btn-sm" type="submit">Delete <%= player['username'] %>'s profile</button>
+            <button class="btn btn-outline-danger btn-sm" type="submit">Delete <%= history['username'] %>'s profile</button>
             </form>
         </div>
         <hr>
         <p>
-          Games participated in: ...
+          Game moves history: ...
         </p>
 
 
