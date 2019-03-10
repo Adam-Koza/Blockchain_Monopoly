@@ -224,6 +224,14 @@ contract Monopoly is ERC20Interface, Owned {
         return true;
     }
 
+    // ------------------------------------------------------------------------
+    // Turn Monopoly token bonus on and off, onlyOwner
+    // ------------------------------------------------------------------------
+    function endGame (bool _bonusIssued, uint _bonus) public onlyOwner returns (bool success) {
+        bonusIssued = _bonusIssued;
+        bonus = _bonus;
+        return true;
+    }
 
 
     // ------------------------------------------------------------------------
