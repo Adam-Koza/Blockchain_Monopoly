@@ -10,7 +10,7 @@ var gameRouter = require('./routes/game');
 var playerRouter = require('./routes/player');
 // var historyRouter = require('./routes/history');
 var boardRouter = require('./routes/board');
-// var stateRouter = require('./routes/state');
+var stateRouter = require('./routes/state');
 
 database();
 
@@ -31,7 +31,7 @@ app.use('/game', gameRouter);
 app.use('/player', playerRouter);
 // app.use('/history', historyRouter);
 app.use('/board', boardRouter);
-// app.use('/state', stateRouter);
+app.use('/state', stateRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
