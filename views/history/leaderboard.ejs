@@ -7,21 +7,24 @@
   </head>
   <body>
     <% include ../navBar %>
-
+    <div class="games-background">
     <div class="container">
 
-      <h1>Game Leaderboard</h1>
-      <p>Below is a list of players with the most wins on the Blockchain Monopoly platform.</p>
+      <h1>Player Leaderboard</h1>
+      <p>Below is a list of Player highscores... Most games won on the Blockchain Monopoly platform.</p>
       <hr>
 
       <% history.forEach(function(game) { %>
       <% include ./leaderboardDetails %>
         <hr>
       <% }) %>
+      No completed games to show.
 
       <p>
+        <hr>
         <a href="/"><h4>&#8592; Back to home page</h4></a>
       </p>
     </div>
+  </div>
   </body>
 </html>
