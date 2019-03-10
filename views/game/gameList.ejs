@@ -1,28 +1,49 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  </head>
-  <body>
-    <% include ../navBar %>
-    <div class="games-background">
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <script type="text/javascript" src='../js/joinGame.js'></script>
+  <script charset="utf-8" src="https://cdn.ethers.io/scripts/ethers-v4.min.js" type="text/javascript">
+  </script>
+  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+  <script>var provider = new ethers.providers.Web3Provider(web3.currentProvider, 'ropsten');
+
+    var MonopolyContractAddress = "0xf87eb3d82dacc70be28fbc5d626c50bedc953f37";
+    var MonopolyContractABI = [{ "constant": false, "inputs": [], "name": "acceptOwnership", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "spender", "type": "address" }, { "name": "tokens", "type": "uint256" }], "name": "approve", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "spender", "type": "address" }, { "name": "tokens", "type": "uint256" }, { "name": "data", "type": "bytes" }], "name": "approveAndCall", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_gameID", "type": "uint256" }, { "name": "_piece", "type": "uint256" }, { "name": "_gameHistory", "type": "string" }], "name": "endGame", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_bonusIssued", "type": "bool" }, { "name": "_bonus", "type": "uint256" }], "name": "endGame", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_gameID", "type": "uint256" }, { "name": "_piece", "type": "uint256" }, { "name": "_nickname", "type": "string" }], "name": "joinGame", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_piece", "type": "uint256" }, { "name": "_wager", "type": "uint256" }, { "name": "_nickname", "type": "string" }], "name": "newGame", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_gameID", "type": "uint256" }], "name": "startGame", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "to", "type": "address" }, { "name": "tokens", "type": "uint256" }], "name": "transfer", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "tokenAddress", "type": "address" }, { "name": "tokens", "type": "uint256" }], "name": "transferAnyERC20Token", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "from", "type": "address" }, { "name": "to", "type": "address" }, { "name": "tokens", "type": "uint256" }], "name": "transferFrom", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_newOwner", "type": "address" }], "name": "transferOwnership", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "payable": true, "stateMutability": "payable", "type": "fallback" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "_gameID", "type": "uint256" }, { "indexed": false, "name": "_wager", "type": "uint256" }, { "indexed": false, "name": "_nickname", "type": "string" }, { "indexed": false, "name": "_gameMaster", "type": "address" }], "name": "NewGame", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "_gameID", "type": "uint256" }, { "indexed": false, "name": "_piece", "type": "uint256" }, { "indexed": false, "name": "_nickname", "type": "string" }, { "indexed": false, "name": "_player", "type": "address" }], "name": "NewPlayer", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "_gameID", "type": "uint256" }, { "indexed": false, "name": "_gameMaster", "type": "address" }], "name": "GameStarted", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "_gameID", "type": "uint256" }, { "indexed": false, "name": "_winner", "type": "address" }, { "indexed": false, "name": "_gameHistory", "type": "string" }], "name": "GameEnded", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "_from", "type": "address" }, { "indexed": true, "name": "_to", "type": "address" }], "name": "OwnershipTransferred", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "from", "type": "address" }, { "indexed": true, "name": "to", "type": "address" }, { "indexed": false, "name": "tokens", "type": "uint256" }], "name": "Transfer", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "tokenOwner", "type": "address" }, { "indexed": true, "name": "spender", "type": "address" }, { "indexed": false, "name": "tokens", "type": "uint256" }], "name": "Approval", "type": "event" }, { "constant": true, "inputs": [], "name": "_totalSupply", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "tokenOwner", "type": "address" }, { "name": "spender", "type": "address" }], "name": "allowance", "outputs": [{ "name": "remaining", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }, { "name": "", "type": "address" }], "name": "allowed", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "tokenOwner", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "balance", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }], "name": "balances", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "bonus", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "bonusIssued", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "decimals", "outputs": [{ "name": "", "type": "uint8" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "gameID", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "uint256" }], "name": "gameInfo", "outputs": [{ "name": "gameMaster", "type": "address" }, { "name": "exists", "type": "bool" }, { "name": "started", "type": "bool" }, { "name": "ended", "type": "bool" }, { "name": "wager", "type": "uint256" }, { "name": "pot", "type": "uint256" }, { "name": "gameHistory", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "name", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "newOwner", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "owner", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "_gameID", "type": "uint256" }, { "name": "_pieceID", "type": "uint256" }], "name": "pieceStatus", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "bool" }, { "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "symbol", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "totalSupply", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }];
+    var MonopolyContract;</script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+</head>
+
+<body>
+  <% include ../navBar %>
+  <div class="games-background">
     <div class="container">
-    <h1>Game List</h1>
-    <ul>
-      <li>Game 0</li>
-      <li><a href="/game/1">Game 1</a></li>
-      <li>Game 2</li>
-      <li>Game 3</li>
-      <li>Game 4</li>
-      <li>Game 5</li>
-    </ul>
-    <p>
-      <a href="/game"><h4>Back to game page</h4></a>
-      <a href="/"><h4>Back to home page</h4></a>
-    </p>
+      <h1>Game List</h1>
+      <ul>
+        <li>Game 0</li>
+        <li><a href="/game/1">Game 1</a></li>
+        <li>Game 2</li>
+        <li>Game 3</li>
+        <li>Game 4</li>
+        <li>Game 5</li>
+      </ul>
+      <div id="newGame"></div>
+      <p>
+        <a href="/game">
+          <h4>Back to game page</h4>
+        </a>
+        <a href="/">
+          <h4>Back to home page</h4>
+        </a>
+      </p>
+    </div>
   </div>
-</div>
-  </body>
+</body>
+<script>joinGame();</script>
+
 </html>
