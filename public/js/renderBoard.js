@@ -18,18 +18,18 @@ function renderBoard() {
     drawButtons();
     drawHistory();
     drawPlayerStatus();
-    drawGameStatus();]
+    drawGameStatus();
 }
 
 function drawBuildings(gameState) {
     for (i = 0; i < gameState.game.board.spaces.length; i++) {
-        if ((i > 0 && < 10) && (gameState.game.board.spaces.hotel || gameState.game.board.spaces.houses > 0)) {
+        if ((i > 0 && < 10) && (gameState.game.board.spaces[i].hotel || gameState.game.board.spaces[i].houses > 0)) {
             document.getElementById(i).innerHTML = '<div class="bottomBuildings"></div>';
-            if (gameState.game.board.spaces.hotel) {
+            if (gameState.game.board.spaces[i].hotel) {
                 document.getElementById(i).innerHTML += '<div class="topBottomHotel">.</div>';
             } else {
-                if (gameState.game.board.spaces.houses > 0) {
-                    for (j = 0; j < gameState.game.board.spaces.houses; j++) {
+                if (gameState.game.board.spaces[i].houses > 0) {
+                    for (j = 0; j < gameState.game.board.spaces[i].houses; j++) {
                         document.getElementById(i).innerHTML += '<div class="topBottomHouse">.</div>';
                     }
                 }
@@ -37,13 +37,13 @@ function drawBuildings(gameState) {
             document.getElementById(i).innerHTML += '</div>'
         }
 
-        if ((i > 10 && < 20) && (gameState.game.board.spaces.hotel || gameState.game.board.spaces.houses > 0)) {
+        if ((i > 10 && < 20) && (gameState.game.board.spaces[i].hotel || gameState.game.board.spaces[i].houses > 0)) {
             document.getElementById(i).innerHTML = '<div class="leftBuildings"></div>';
-            if (gameState.game.board.spaces.hotel) {
+            if (gameState.game.board.spaces[i].hotel) {
                 document.getElementById(i).innerHTML += '<div class="middleHotel">.</div>';
             } else {
-                if (gameState.game.board.spaces.houses > 0) {
-                    for (j = 0; j < gameState.game.board.spaces.houses; j++) {
+                if (gameState.game.board.spaces[i].houses > 0) {
+                    for (j = 0; j < gameState.game.board.spaces[i].houses; j++) {
                         document.getElementById(i).innerHTML += '<div class="middleHouse">.</div>';
                     }
                 }
@@ -51,13 +51,13 @@ function drawBuildings(gameState) {
             document.getElementById(i).innerHTML += '</div>'
         }
 
-        if ((i > 20 && < 30) && (gameState.game.board.spaces.hotel || gameState.game.board.spaces.houses > 0)) {
+        if ((i > 20 && < 30) && (gameState.game.board.spaces[i].hotel || gameState.game.board.spaces[i].houses > 0)) {
             document.getElementById(i).innerHTML = '<div class="topBuildings"></div>';
-            if (gameState.game.board.spaces.hotel) {
+            if (gameState.game.board.spaces[i].hotel) {
                 document.getElementById(i).innerHTML += '<div class="topBottomHotel">.</div>';
             } else {
-                if (gameState.game.board.spaces.houses > 0) {
-                    for (j = 0; j < gameState.game.board.spaces.houses; j++) {
+                if (gameState.game.board.spaces[i].houses > 0) {
+                    for (j = 0; j < gameState.game.board.spaces[i].houses; j++) {
                         document.getElementById(i).innerHTML += '<div class="topBottomHouse">.</div>';
                     }
                 }
@@ -65,18 +65,36 @@ function drawBuildings(gameState) {
             document.getElementById(i).innerHTML += '</div>'
         }
 
-        if ((i > 30 && < 40) && (gameState.game.board.spaces.hotel || gameState.game.board.spaces.houses > 0)) {
+        if ((i > 30 && < 40) && (gameState.game.board.spaces[i].hotel || gameState.game.board.spaces[i].houses > 0)) {
             document.getElementById(i).innerHTML = '<div class="rightBuildings"></div>';
-            if (gameState.game.board.spaces.hotel) {
+            if (gameState.game.board.spaces[i].hotel) {
                 document.getElementById(i).innerHTML += '<div class="middleHotel">.</div>';
             } else {
-                if (gameState.game.board.spaces.houses > 0) {
-                    for (j = 0; j < gameState.game.board.spaces.houses; j++) {
+                if (gameState.game.board.spaces[i].houses > 0) {
+                    for (j = 0; j < gameState.game.board.spaces[i].houses; j++) {
                         document.getElementById(i).innerHTML += '<div class="middleHouse">.</div>';
                     }
                 }
             }
             document.getElementById(i).innerHTML += '</div>'
         }
+    }
+}
+
+function drawPieces(gameState) {
+    imgMap = [
+        '<img class="topPiece" src="../images/pieces/cat.png"></img>',
+        '<img class="topPiece" src="../images/pieces/dog.png"></img>',
+        '<img class="topPiece" src="../images/pieces/duck.png"></img>',
+        '<img class="topPiece" src="../images/pieces/hat.png"></img>',
+        '<img class="topPiece" src="../images/pieces/penguin.png"></img>',
+        '<img class="topPiece" src="../images/pieces/racecar.png"></img>',
+        '<img class="topPiece" src="../images/pieces/ship.png"></img>',
+        '<img class="topPiece" src="../images/pieces/tRex.png"></img>' 
+    ]
+
+    for (i = 0; i < gameState.playerStates.length; i++) {
+        let pieceNum = gameState.playerStates[i].piece.number;
+        document.getElementById(gameState.playerStates.position).innerHTML += imgMap[pieceNum - 1]; 
     }
 }
