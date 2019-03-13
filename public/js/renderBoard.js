@@ -14,7 +14,7 @@ function renderBoard() {
     gameState = JSON.parse(document.getElementById("state").innerHTML);
 
     drawBuildings(gameState);
-    drawPiences(gameState);
+    drawPieces(gameState);
     drawButtons();
     drawHistory();
     drawPlayerStatus();
