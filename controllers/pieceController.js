@@ -10,8 +10,8 @@ pieceController.index = function (req, res) {
     }
     else {
       res.locals.pieces = pieces;
-      res.send(pieces);
-      //res.render('./piece/index');
+      //res.send(pieces);
+      res.render('./board/piece/index');
     }
   });
 };
