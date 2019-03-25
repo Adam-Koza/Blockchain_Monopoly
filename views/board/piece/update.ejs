@@ -8,26 +8,26 @@
   </head>
   <body>
 
-    <% include ../navBar %>
+    <% include ../../navBar %>
 
     <div class="players-background">
 
     <div class="container">
-        <h1>Update player: <%- player['username'] %></h1>
-        <p>For testing purposes. A player should be programatically updated</p>
+        <h1>Update piece: <%- piece['name'] %></h1>
+        <p>For updating an existing game piece.</p>
 
         <hr>
 
         <div class="col-5">
-          <form class="form-group" action="/player/update/<%- player['_id'] || "" %>" method="post">
+          <form class="form-group" action="/board/piece/update/<%- piece['_id'] || "" %>" method="post">
             Username: <br>
-            <input class="form-control" type="text" name="username" value="<%- player['username'] || "" %>" required>
+            <input class="form-control" type="text" name="name" value="<%- piece['name'] || "" %>" required>
             <br>
-            Public Key:<br>
-            <input class="form-control" type="text" name="publicKey" value="<%- player['publicKey'] || "" %>" required>
+            Description:<br>
+            <input class="form-control" type="text" name="description" value="<%- piece['description'] || "" %>" required>
             <br>
-            Token Balance:<br>
-            <input class="form-control" type="text" name="balance" value="<%- player['balance'] || "" %>" required>
+            Image URL:<br>
+            <input class="form-control" type="text" name="imageURL" value="<%- piece['imageURL'] || "" %>" required>
             <br>
             <div>
               <br>

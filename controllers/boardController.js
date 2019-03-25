@@ -35,6 +35,16 @@ boardController.show = function (req, res) {
   })
 };
 
+// Add a new board
+boardController.new = function (req, res) {
+  // res.locals.player = {
+  //   username: "",
+  //   publicKey: "",
+  //   balance: ""
+  // };
+  res.render('./player/new');
+};
+
 // Save a new board
 boardController.save = function (req, res) {
   let newBoard = new Board(req.body);
@@ -49,6 +59,21 @@ boardController.save = function (req, res) {
       res.send("Successfully saved new board.");
     }
   });
+};
+
+// Show board info to update
+boardController.showUpdate = function (req, res) {
+  Board.findOne({
+    _id: req.params.id
+  }).exec((err, board) => {
+    if (err) {
+      console.log("Error: " + err);
+    }
+    else {
+      res.locals.board = board;
+      res.render('./board/update');
+    }
+  })
 };
 
 // Update an existing board

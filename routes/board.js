@@ -15,9 +15,11 @@ router.get('/piece/index', pieceController.index);
 router.get('/piece/index/:id', pieceController.show);
 
 // Saving a new piece
+router.get('/piece/new', pieceController.new);
 router.post('/piece/save', pieceController.save);
 
 // Update an existing piece
+router.get('/piece/update/:id', pieceController.showUpdate);
 router.post('/piece/update/:id', pieceController.update);
 
 // Delete an existing piece
@@ -35,9 +37,11 @@ router.get('/space/index', spaceController.index);
 router.get('/space/index/:id', spaceController.show);
 
 // Saving a new space
+router.get('/space/new', spaceController.new);
 router.post('/space/save', spaceController.save);
 
 // Update an existing space
+router.get('/space/update/:id', spaceController.showUpdate);
 router.post('/space/update/:id', spaceController.update);
 
 // Delete an existing space
@@ -55,9 +59,11 @@ router.get('/index', boardController.index);
 router.get('/index/:id', boardController.show);
 
 // Saving a new board
+router.get('/new', boardController.new);
 router.post('/save', boardController.save);
 
 // Update an existing board
+router.get('/update/:id', boardController.showUpdate);
 router.post('/update/:id', boardController.update);
 
 // Delete an existing board

@@ -32,11 +32,21 @@ spaceController.show = function (req, res) {
   })
 };
 
+// Add a new space
+spaceController.new = function (req, res) {
+  // res.locals.player = {
+  //   username: "",
+  //   publicKey: "",
+  //   balance: ""
+  // };
+  res.render('./board/space/new');
+};
+
 // Save a new space
 spaceController.save = function (req, res) {
-  let newPiece = new Space(req.body);
+  let newSpace = new Space(req.body);
 
-  newPiece.save((err) => {
+  newSpace.save((err) => {
     if (err) {
       console.log("Error: " + err);
     }
@@ -46,6 +56,21 @@ spaceController.save = function (req, res) {
       res.send("Successfully saved new space.");
     }
   });
+};
+
+// Show space info to update
+spaceController.showUpdate = function (req, res) {
+  Space.findOne({
+    _id: req.params.id
+  }).exec((err, space) => {
+    if (err) {
+      console.log("Error: " + err);
+    }
+    else {
+      res.locals.space = space;
+      res.render('./board/space/update');
+    }
+  })
 };
 
 // Update an existing space

@@ -6,10 +6,10 @@
   <div>Description: <%- piece['description'] %></div>
   <div>Image URL: <%- piece['imageURL'] %></div>
   <br>
-  <a class="btn btn-outline-warning btn-sm" role="button" href="/piece/update/<%= piece['id']%>">
+  <a class="btn btn-warning btn-sm" role="button" href="/board/piece/update/<%= piece['id']%>">
   Update
   </a>
-  <a class="btn btn-danger btn-sm" role="button" href="/piece/delete/<%= piece['id']%>" method="DELETE">
+  <a class="btn btn-danger btn-sm" role="button" href="/board/piece/delete/<%= piece['id']%>" method="DELETE">
   Delete
   </a>
 </div>

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= player['username'] %>'s info</title>
+    <title><%= piece['name'] %>'s info</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   </head>
@@ -13,23 +13,23 @@
     <div class="players-background">
 
     <div class="container">
-
-        <h1><%= player['username'] %></h1>
+      
+        <h1><%= piece['name'] %></h1>
         <p>
-          Address: <%= player['publicKey'] %>
+          Address: <%= piece['description'] %>
           <br/>
-          Balance: <%= player['balance'] %>
+          Balance: <%= piece['imageURL'] %>
           <br/>
           <br/>
-          Joined: <%= player['created_at'] %>
+          Joined: <%= piece['created_at'] %>
           <br/>
-          Last updated: <%= player['updated_at'] %>
+          Last updated: <%= piece['updated_at'] %>
         </p>
 
         <div>
-            <form action="/player/delete/<%= player['_id'] %>" method="GET" style="display: inline;">
+            <form action="/board/piece/delete/<%= piece['_id'] %>" method="GET" style="display: inline;">
             <br>
-            <button class="btn btn-outline-danger btn-sm" type="submit">Delete <%= player['username'] %>'s profile</button>
+            <button class="btn btn-outline-danger btn-sm" type="submit">Delete <%= piece['name'] %>'s profile</button>
             </form>
         </div>
         <hr>

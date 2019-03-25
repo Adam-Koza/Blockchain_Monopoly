@@ -7,24 +7,23 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   </head>
   <body>
-    <% include ../navBar %>
+    <% include ../../navBar %>
     <div class="players-background">
     <div class="container">
         <h1>Create a new game piece.</h1>
         <p></p>
 
         <hr>
-        <!-- TODO: update form values  -->
         <div class="col-5">
-          <form class="form-group" action="/player/save" method="post">
-            Username: <br>
-            <input class="form-control" type="text" name="username" value="<%- player['username'] || "" %>" required>
+          <form class="form-group" action="/board/piece/save" method="post">
+            Name: <br>
+            <input class="form-control" type="text" name="name" value="<%- piece['name'] || "" %>" required>
             <br>
-            Public Key:<br>
-            <input class="form-control" type="text" name="publicKey" value="<%- player['publicKey'] || "" %>" required>
+            Description:<br>
+            <input class="form-control" type="text" name="description" value="<%- piece['description'] || "" %>" required>
             <br>
-            Token Balance:<br>
-            <input class="form-control" type="text" name="balance" value="<%- player['balance'] || "" %>" required>
+            Image URL:<br>
+            <input class="form-control" type="text" name="imageURL" value="<%- piece['imageURL'] || "" %>" required>
             <br>
             <div>
               <br>
