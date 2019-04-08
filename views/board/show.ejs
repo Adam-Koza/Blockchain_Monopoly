@@ -8,7 +8,7 @@
   </head>
   <body>
 
-    <% include ../navBar %>
+    <% include ../../navBar %>
 
     <div class="players-background">
 
@@ -27,14 +27,14 @@
         </p>
 
         <div>
-            <form action="/player/delete/<%= player['_id'] %>" method="GET" style="display: inline;">
+            <form action="/board/space/delete/<%= player['_id'] %>" method="GET" style="display: inline;">
             <br>
-            <button class="btn btn-outline-danger btn-sm" type="submit">Delete <%= player['username'] %>'s profile</button>
+            <button class="btn btn-outline-danger btn-sm" type="submit">Delete <%= space['name'] %></button>
             </form>
         </div>
         <hr>
         <p>
-          Game boards containing this game piece: ...
+          Game boards containing this game space: ...
         </p>
 
     </div>

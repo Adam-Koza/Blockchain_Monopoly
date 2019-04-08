@@ -13,22 +13,23 @@
     <div class="players-background">
 
     <div class="container">
-        <h1>Update player: <%- player['username'] %></h1>
-        <p>For testing purposes. A player should be programatically updated</p>
+        <h1>Update space: <%- space['name'] %></h1>
+        <p>Update a game board space.</p>
 
         <hr>
 
         <div class="col-5">
-          <form class="form-group" action="/player/update/<%- player['_id'] || "" %>" method="post">
-            Username: <br>
-            <input class="form-control" type="text" name="username" value="<%- player['username'] || "" %>" required>
-            <br>
-            Public Key:<br>
-            <input class="form-control" type="text" name="publicKey" value="<%- player['publicKey'] || "" %>" required>
-            <br>
-            Token Balance:<br>
-            <input class="form-control" type="text" name="balance" value="<%- player['balance'] || "" %>" required>
-            <br>
+          <form class="form-group" action="/board/space/update/<%- space['_id'] || "" %>" method="post">
+            Name:<br><input class="form-control" type="text" name="name" value="<%- space['name'] || "" %>" required><br>
+            Position:<br><input class="form-control" type="text" name="position" value="<%- space['position'] || "" %>" required><br>
+            Type:<br><input class="form-control" type="text" name="type" value="<%- space['type'] || "" %>" required><br>
+            ImageURL:<br><input class="form-control" type="text" name="imageURL" value="<%- space['imageURL'] || "" %>" required><br>
+            Color:<br><input class="form-control" type="text" name="color" value="<%- space['color'] || "" %>" required><br>
+            Cost:<br><input class="form-control" type="text" name="cost" value="<%- space['cost'] || "" %>" required><br>
+            Rent:<br><input class="form-control" type="text" name="rent" value="<%- space['rent'] || "" %>" required><br>
+            Type:<br><input class="form-control" type="text" name="type" value="<%- space['type'] || "" %>" required><br>
+            Type:<br><input class="form-control" type="text" name="type" value="<%- space['type'] || "" %>" required><br>
+            Type:<br><input class="form-control" type="text" name="type" value="<%- space['type'] || "" %>" required><br>
             <div>
               <br>
               <input class="btn btn-primary btn-lg" role="button" type="submit" value="Submit"/><br><br><hr>
