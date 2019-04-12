@@ -26,8 +26,8 @@ pieceController.show = function (req, res) {
     }
     else {
       res.locals.piece = piece;
-      res.send(piece);
-      // res.render('./board/show');
+      //res.send(piece);
+      res.render('./board/piece/show');
     }
   })
 };

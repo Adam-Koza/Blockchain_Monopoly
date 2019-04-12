@@ -7,7 +7,7 @@ var boardController = {};
 
 // Show index list of all boards
 boardController.index = function (req, res) {
-  Board.find().exec((err, players) => {
+  Board.find().exec((err, boards) => {
     if (err) {
       console.log("Error: " + err);
     }

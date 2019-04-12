@@ -11,25 +11,17 @@
     <div class="players-background">
     <div class="container">
         <h1>Create a new game piece.</h1>
-        <p></p>
-
         <hr>
         <div class="col-5">
           <form class="form-group" action="/board/piece/save" method="post">
-            Name: <br>
-            <input class="form-control" type="text" name="name" value="<%- piece['name'] || "" %>" required>
-            <br>
-            Description:<br>
-            <input class="form-control" type="text" name="description" value="<%- piece['description'] || "" %>" required>
-            <br>
-            Image URL:<br>
-            <input class="form-control" type="text" name="imageURL" value="<%- piece['imageURL'] || "" %>" required>
-            <br>
+            <% include ./form %>
             <div>
               <br>
               <input class="btn btn-primary btn-lg" role="button" type="submit" value="Submit"/><br><br><hr>
             </div>
           </form>
+          <hr>
+          <a href="/board/piece/index"><h4>&#8592; Back to game pieces</h4></a>
         </div>
     </div>
   </div>

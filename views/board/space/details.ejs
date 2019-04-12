@@ -1,16 +1,26 @@
-<!-- Player information partial -->
-<!-- TODO: update game piece details -->
+<!-- space information partial -->
 <div class="player-details">
-  <h2> <a href="/player/index/<%= player['_id']%>">
-  		<%- player['username'] %>
+  <h2> <a href="/board/space/index/<%= space['_id']%>">
+  		<%- space['name'] %>
   </h2></a>
-  <div>Public address: <%- player['publicKey'] %></div>
-  <div>Token balance: <%- player['balance'] %></div>
+  <div>Position: <%- space['position'] %></div>
+  <div>Type: <%- space['type'] %></div>
+  <div>ImageURL: <%- space['imageURL'] %></div>
+  <div>Color: <%- space['color'] %></div>
+  <div>Cost: <%- space['cost'] %></div>
+  <div>Rent: <%- space['rent'] %></div>
+  <div>1 House: <%- space['one_house'] %></div>
+  <div>2 Houses: <%- space['two_house'] %></div>
+  <div>3 Houses: <%- space['three_house'] %></div>
+  <div>4 Houses: <%- space['four_house'] %></div>
+  <div>Hotel Rent: <%- space['hotel_rent'] %></div>
+  <div>Mortgage Value: <%- space['mortgage_value'] %></div>
+  <div>Building Cost: <%- space['building_cost'] %></div>
   <br>
-  <a class="btn btn-outline-warning btn-sm" role="button" href="/player/update/<%= player['id']%>">
+  <a class="btn btn-warning btn-sm" role="button" href="/board/space/update/<%= space['id']%>">
   Update
   </a>
-  <a class="btn btn-danger btn-sm" role="button" href="/player/delete/<%= player['id']%>" method="DELETE">
+  <a class="btn btn-danger btn-sm" role="button" href="/board/space/delete/<%= space['id']%>" method="DELETE">
   Delete
   </a>
 </div>
