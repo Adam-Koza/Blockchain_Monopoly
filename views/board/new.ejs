@@ -10,26 +10,18 @@
     <% include ../../navBar %>
     <div class="players-background">
     <div class="container">
-        <h1>Create a new game space.</h1>
-        <p></p>
-
+        <h1>Create a new game piece.</h1>
         <hr>
         <div class="col-5">
-          <form class="form-group" action="/board/space/save" method="post">
-            Username: <br>
-            <input class="form-control" type="text" name="username" value="<%- player['username'] || "" %>" required>
-            <br>
-            Public Key:<br>
-            <input class="form-control" type="text" name="publicKey" value="<%- player['publicKey'] || "" %>" required>
-            <br>
-            Token Balance:<br>
-            <input class="form-control" type="text" name="balance" value="<%- player['balance'] || "" %>" required>
-            <br>
+          <form class="form-group" action="/board/piece/save" method="post">
+            <% include ./form %>
             <div>
               <br>
               <input class="btn btn-primary btn-lg" role="button" type="submit" value="Submit"/><br><br><hr>
             </div>
           </form>
+          <hr>
+          <a href="/board/index"><h4>&#8592; Back to game boards</h4></a>
         </div>
     </div>
   </div>

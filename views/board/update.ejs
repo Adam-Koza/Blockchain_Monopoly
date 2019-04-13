@@ -2,39 +2,29 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Create new user</title>
+    <title>Update Game Piece</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   </head>
   <body>
-
-    <% include ../navBar %>
-
-    <div class="players-background">
-
+    <% include ../../navBar %>
+    <div class="player-background">
     <div class="container">
-        <h1>Update space: <%- space['name'] %></h1>
-        <p>Update a game board space.</p>
+        <h1>Update piece: <%- piece['name'] %></h1>
+        <p></p>
 
         <hr>
 
         <div class="col-5">
-          <form class="form-group" action="/board/space/update/<%- space['_id'] || "" %>" method="post">
-            Name:<br><input class="form-control" type="text" name="name" value="<%- space['name'] || "" %>" required><br>
-            Position:<br><input class="form-control" type="text" name="position" value="<%- space['position'] || "" %>" required><br>
-            Type:<br><input class="form-control" type="text" name="type" value="<%- space['type'] || "" %>" required><br>
-            ImageURL:<br><input class="form-control" type="text" name="imageURL" value="<%- space['imageURL'] || "" %>" required><br>
-            Color:<br><input class="form-control" type="text" name="color" value="<%- space['color'] || "" %>" required><br>
-            Cost:<br><input class="form-control" type="text" name="cost" value="<%- space['cost'] || "" %>" required><br>
-            Rent:<br><input class="form-control" type="text" name="rent" value="<%- space['rent'] || "" %>" required><br>
-            Type:<br><input class="form-control" type="text" name="type" value="<%- space['type'] || "" %>" required><br>
-            Type:<br><input class="form-control" type="text" name="type" value="<%- space['type'] || "" %>" required><br>
-            Type:<br><input class="form-control" type="text" name="type" value="<%- space['type'] || "" %>" required><br>
+          <form class="form-group" action="/board/piece/update/<%- piece['_id'] || "" %>" method="post">
+            <% include ./form %>
             <div>
               <br>
               <input class="btn btn-primary btn-lg" role="button" type="submit" value="Submit"/><br><br><hr>
             </div>
           </form>
+          <hr>
+          <a href="/board/index"><h4>&#8592; Back to game boards</h4></a>
         </div>
     </div>
   </div>

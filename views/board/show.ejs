@@ -2,41 +2,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= player['username'] %>'s info</title>
+    <title><%= piece['name'] %>'s info</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   </head>
   <body>
-
     <% include ../../navBar %>
-
     <div class="players-background">
-
     <div class="container">
-
-        <h1><%= player['username'] %></h1>
-        <p>
-          Address: <%= player['publicKey'] %>
-          <br/>
-          Balance: <%= player['balance'] %>
-          <br/>
-          <br/>
-          Joined: <%= player['created_at'] %>
-          <br/>
-          Last updated: <%= player['updated_at'] %>
-        </p>
-
-        <div>
-            <form action="/board/space/delete/<%= player['_id'] %>" method="GET" style="display: inline;">
-            <br>
-            <button class="btn btn-outline-danger btn-sm" type="submit">Delete <%= space['name'] %></button>
-            </form>
-        </div>
+      <% include ./details %>
         <hr>
         <p>
-          Game boards containing this game space: ...
+          Game boards containing this game piece: ...
         </p>
-
+        <hr>
+        <a href="/board/index"><h4>&#8592; Back to game boards</h4></a>
     </div>
   </div>
   </body>
