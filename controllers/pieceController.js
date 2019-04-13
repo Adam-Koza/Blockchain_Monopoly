@@ -10,8 +10,8 @@ pieceController.index = function (req, res) {
     }
     else {
       res.locals.pieces = pieces;
-      res.send(pieces);
-      //res.render('./piece/index');
+      //res.send(pieces);
+      res.render('./board/piece/index');
     }
   });
 };
@@ -26,10 +26,20 @@ pieceController.show = function (req, res) {
     }
     else {
       res.locals.piece = piece;
-      res.send(piece);
-      // res.render('./board/show');
+      //res.send(piece);
+      res.render('./board/piece/show');
     }
   })
+};
+
+// Add a new piece
+pieceController.new = function (req, res) {
+  res.locals.piece = {
+    name: "",
+    description: "",
+    imageURL: ""
+  };
+  res.render('./board/piece/new');
 };
 
 // Save a new piece
@@ -42,10 +52,25 @@ pieceController.save = function (req, res) {
     }
     else {
       console.log("Successfully saved new piece.");
-      // res.redirect("/player/index");
-      res.send("Successfully saved new piece.");
+      res.redirect("/board/piece/index");
+      //res.send("Successfully saved new piece.");
     }
   });
+};
+
+// Show piece info to update
+pieceController.showUpdate = function (req, res) {
+  Piece.findOne({
+    _id: req.params.id
+  }).exec((err, piece) => {
+    if (err) {
+      console.log("Error: " + err);
+    }
+    else {
+      res.locals.piece = piece;
+      res.render('./board/piece/update');
+    }
+  })
 };
 
 // Update an existing piece
@@ -64,8 +89,8 @@ pieceController.update = function (req, res) {
       }
       else {
         console.log("Updated piece: " + piece._id);
-        res.send("Updated piece: " + piece._id);
-        // res.redirect("/piece/index");
+        //res.send("Updated piece: " + piece._id);
+        res.redirect("/board/piece/index");
       }
     }
   );
@@ -81,8 +106,8 @@ pieceController.delete = function (req, res) {
       }
       else {
         console.log("Piece deleted: \n", piece);
-        // res.redirect("/player/index");
-        res.send("Deleted piece: \n", piece);
+        res.redirect("/board/piece/index");
+        //res.send("Deleted piece: \n", piece);
       }
     }
   );
