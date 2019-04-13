@@ -17,6 +17,10 @@ var gamePieceSchema = new Schema({
     type : String,
     required : true
   },
+  number : {
+    type : Number,
+    required : true
+  },
   description : {
     type : String
   },
