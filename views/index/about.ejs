@@ -3,12 +3,37 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>About Page</p>
+    <% include ../navBar %>
+    <div class="main-background">
+    <div class="container">
+
+
+    <h1>About Page</h1>
     <p>
-      <a href="/"><h4>Back to home page</h4></a>
+      Blockchain Monopoly is a dapp for playing Monopoly games!
+
+      Blockchain Monopoly utilizes the blockchain for verification and transparency, as well as utilizing a state channel to reduce the load on the blockchain network (Start and End of games are recorded on the blockchain and the state channel takes care of all games in progress).
+
+      <ul>
+        <li>
+          Players can buy Monopoly Tokens through a smart contract to buy-into a game.
+        </li>
+      <li>Players can create or join games.</li>
+      <li>Once a game starts all the moves are verified off-chain</li>
+      <li>All the game logic is handled on the server</li>
+      <li>When a game ends all the moves and game state history are hashed and published on-chain.</li>
+      <li>Players can view past game histories and view each move of a game. They can verify that the game or move happened as recorded on the blockchain throuh a merkle proof.</li>
+      <li>Players can view a leaderboard to showcase the best players and incentivize players to win.</li>
+    </ul>
     </p>
+    <p>
+      <hr>
+      <a href="/"><h4>&#8592; Back to home page</h4></a>
+    </p>
+  </div>
+</div>
   </body>
 </html>

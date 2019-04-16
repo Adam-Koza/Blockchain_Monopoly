@@ -16,6 +16,19 @@ historyController.index = function (req, res) {
   });
 };
 
+// Show leaderboard - index of top players
+historyController.leaderboard = function (req, res) {
+  History.find().exec((err, history) => {
+    if (err) {
+      console.log("Error: " + err);
+    }
+    else {
+      res.locals.history = history;
+      res.render('./history/leaderboard');
+    }
+  });
+};
+
 // Get a single history by id
 historyController.show = function (req, res) {
   History.findOne({

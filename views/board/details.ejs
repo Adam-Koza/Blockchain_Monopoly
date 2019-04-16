@@ -1,0 +1,15 @@
+<!-- Board information partial -->
+<div class="player-details">
+  <h2> <a href="/board/index/<%= board['_id']%>">
+  		<%- board['name'] %>
+  </h2></a>
+  <div>Description: <%- board['description'] %></div>
+  <div>Image URL: <%- board['imageURL'] %></div>
+  <br>
+  <a class="btn btn-warning btn-sm" role="button" href="/board/update/<%= board['id']%>">
+  Update
+  </a>
+  <a class="btn btn-danger btn-sm" role="button" href="/board/delete/<%= board['id']%>" method="DELETE">
+  Delete
+  </a>
+</div>

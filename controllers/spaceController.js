@@ -10,8 +10,8 @@ spaceController.index = function (req, res) {
     }
     else {
       res.locals.spaces = spaces;
-      res.send(spaces);
-      //res.render('./space/index');
+      //res.send(spaces);
+      res.render('./board/space/index');
     }
   });
 };
@@ -26,26 +26,62 @@ spaceController.show = function (req, res) {
     }
     else {
       res.locals.space = space;
-      res.send(space);
-      // res.render('./space/show');
+      //res.send(space);
+      res.render('./board/space/show');
     }
   })
 };
 
+// Add a new space
+spaceController.new = function (req, res) {
+  res.locals.space = {
+    name: "",
+    position: "",
+    type: "",
+    imageURL: "",
+    color: "",
+    cost: "",
+    rent: "",
+    one_house: "",
+    two_house: "",
+    three_house: "",
+    four_house: "",
+    hotel_rent: "",
+    mortgage_value: "",
+    building_cost: "",
+  };
+  res.render('./board/space/new');
+};
+
 // Save a new space
 spaceController.save = function (req, res) {
-  let newPiece = new Space(req.body);
+  let newSpace = new Space(req.body);
 
-  newPiece.save((err) => {
+  newSpace.save((err) => {
     if (err) {
       console.log("Error: " + err);
     }
     else {
       console.log("Successfully saved new space.");
-      // res.redirect("/player/index");
-      res.send("Successfully saved new space.");
+      res.redirect("/board/space/index");
+      // res.send("Successfully saved new space.");
     }
   });
+};
+
+// Show space info to update
+spaceController.showUpdate = function (req, res) {
+  Space.findOne({
+    _id: req.params.id
+  }).exec((err, space) => {
+    if (err) {
+      console.log("Error: " + err);
+    }
+    else {
+      res.locals.space = space;
+      res.render('./board/space/update');
+    }
+  })
 };
 
 // Update an existing space
@@ -64,8 +100,8 @@ spaceController.update = function (req, res) {
       }
       else {
         console.log("Updated space: " + space._id);
-        res.send("Updated space: " + space._id);
-        // res.redirect("/space/index");
+        //res.send("Updated space: " + space._id);
+        res.redirect("/board/space/index");
       }
     }
   );

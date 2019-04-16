@@ -1,0 +1,15 @@
+<!-- Piece information partial -->
+<div class="player-details">
+  <h2> <a href="/board/piece/index/<%= piece['_id']%>">
+  		<%- piece['name'] %>
+  </h2></a>
+  <div>Description: <%- piece['description'] %></div>
+  <div>Image URL: <%- piece['imageURL'] %></div>
+  <br>
+  <a class="btn btn-warning btn-sm" role="button" href="/board/piece/update/<%= piece['id']%>">
+  Update
+  </a>
+  <a class="btn btn-danger btn-sm" role="button" href="/board/piece/delete/<%= piece['id']%>" method="DELETE">
+  Delete
+  </a>
+</div>

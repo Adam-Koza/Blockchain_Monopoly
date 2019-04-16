@@ -1,27 +1,27 @@
+<!-- Game piece information partial -->
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Game Leaderboard</title>
+    <title>Game Pieces</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  </head>
+</head>
   <body>
-    <% include ../navBar %>
-    <div class="games-background">
+    <% include ../../navBar %>
+    <div class="players-background">
     <div class="container">
 
-      <h1>Player Leaderboard</h1>
-      <p>Below is a list of Player highscores... Most games won on the Blockchain Monopoly platform.</p>
+      <h1>Game Piece</h1>
+      <p>Below is a list of all game pieces to be used for Monopoly Boards.</p>
+      <a class="btn btn-success" role="button" href="/board/piece/new"><h3>+ New Piece</h3></a>
       <hr>
 
-      <% history.forEach(function(game) { %>
-      <% include ./leaderboardDetails %>
+      <% pieces.forEach(function(piece) { %>
+      <% include ./details %>
         <hr>
       <% }) %>
-      No completed games to show.
 
       <p>
-        <hr>
         <a href="/"><h4>&#8592; Back to home page</h4></a>
       </p>
     </div>
